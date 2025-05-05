@@ -35,3 +35,18 @@ html {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
+@layer base {
+  /* html {
+    @apply bg-background text-foreground font-sans;
+  } */
+}
+
+@layer utilities {
+}
+
+@layer components {
+  .gradient-bg {
+    @apply absolute inset-0 bg-gradient-to-br from-black/70 to-transparent pointer-events-none;
+  }
+}

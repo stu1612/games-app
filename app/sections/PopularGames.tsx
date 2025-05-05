@@ -1,19 +1,28 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { fetchPopularGames } from "../lib/fetchGames";
-import { motion } from "framer-motion";
+// react
 import { useState, useEffect } from "react";
-import { Heading } from "../components";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import ImageCarousel from "../components/ImageCarousel";
+
+// libs
+import { fetchPopularGames } from "../lib/fetchGames";
+
+// npm
+import { motion } from "framer-motion";
+
+// components
+import { Heading, ImageCarousel } from "../components";
 
 export default function PopularGames() {
-  const [index, setIndex] = useState(3);
+  // state
+  const [index, setIndex] = useState(0);
 
+  // query
   const { data, isLoading, isError } = useQuery({
     queryKey: ["popularGames"],
     queryFn: fetchPopularGames,
+    staleTime: 1000 * 60 * 10,
   });
 
   useEffect(() => {
@@ -27,7 +36,8 @@ export default function PopularGames() {
   if (isLoading) return <p>Loading games...</p>;
   if (isError) return <p>Something went wrong!</p>;
 
-  const games = data?.results.map((game: any) => game);
+  // components
+  const games = data?.results ?? [];
 
   return (
     <motion.div
@@ -43,7 +53,6 @@ export default function PopularGames() {
       }}
       className="h-auto"
     >
-      {/* <Heading title="Top 5 Games since 2019" /> */}
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,7 +68,7 @@ export default function PopularGames() {
               fill
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-transparent pointer-events-none" />
+            <div className="gradient-bg" />
 
             <div className="z-10 absolute top-20 left-0 right-0 md:left-20 px-12 ">
               <Heading title="Top 5 Games since 2019" />
@@ -81,40 +90,20 @@ export default function PopularGames() {
                 {games[index].genres[0].name}
               </motion.h3>
             </div>
-            {/* <div className="z-20 absolute bottom-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4">
-              {games[index].short_screenshots
-                .slice(1, 5)
-                .map((img: any, idx: any) => (
-                  <img
-                    src={img.image}
-                    alt="hi"
-                    key={idx}
-                    className="h-50 md:h-40 w-full rounded-2xl object-cover"
-                  />
-                ))}
-            </div> */}
-            <ImageCarousel
-              images={games[index].short_screenshots}
-              className="hidden md:grid absolute bottom-4"
-            />
+            {games[index] && games[index].short_screenshots && (
+              <ImageCarousel
+                images={games[index].short_screenshots}
+                className="hidden md:grid absolute bottom-4"
+              />
+            )}
           </div>
         )}
-        <ImageCarousel
-          images={games[index].short_screenshots}
-          className="grid relative top-4 md:hidden"
-        />
-        {/* <div className="z-20 absolute bottom-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4">
-          {games[index].short_screenshots
-            .slice(1, 5)
-            .map((img: any, idx: any) => (
-              <img
-                src={img.image}
-                alt="hi"
-                key={idx}
-                className="h-50 md:h-40 w-full rounded-2xl object-cover"
-              />
-            ))}
-        </div> */}
+        {games[index] && games[index].short_screenshots && (
+          <ImageCarousel
+            images={games[index].short_screenshots}
+            className="grid relative top-4 md:hidden"
+          />
+        )}
       </motion.div>
     </motion.div>
   );
