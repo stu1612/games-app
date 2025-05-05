@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Heading } from "../components";
 import Image from "next/image";
+import ImageCarousel from "../components/ImageCarousel";
 
 export default function PopularGames() {
   const [index, setIndex] = useState(3);
@@ -28,8 +29,6 @@ export default function PopularGames() {
 
   const games = data?.results.map((game: any) => game);
 
-  console.log(games);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: -100 }}
@@ -42,12 +41,14 @@ export default function PopularGames() {
         duration: 0.2,
         ease: "linear",
       }}
+      className="h-auto"
     >
       {/* <Heading title="Top 5 Games since 2019" /> */}
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        className="h-auto md:h-screen relative"
       >
         {games?.[index] && (
           <div className="h-screen w-full relative cursor-pointer">
@@ -58,11 +59,9 @@ export default function PopularGames() {
               fill
               priority
             />
-            {/* BACKGROUND OVERLAY */}
             <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-transparent pointer-events-none" />
-            {/* BACKGROUND OVERLAY */}
 
-            <div className="z-10 absolute top-10 left-20">
+            <div className="z-10 absolute top-20 left-0 right-0 md:left-20 px-12 ">
               <Heading title="Top 5 Games since 2019" />
 
               <motion.h2
@@ -77,13 +76,12 @@ export default function PopularGames() {
                 initial={{ x: 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className=" font-thin uppercase text-white text-6xl opacity-40 leading-normal tracking-widest"
+                className=" font-thin uppercase text-white text-4xl md:text-6xl opacity-40 leading-normal tracking-widest"
               >
                 {games[index].genres[0].name}
               </motion.h3>
             </div>
-            {/* <div className="mt-8 z-20 bg-transparent absolute bottom-2 grid grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4"> */}
-            <div className="z-20 absolute bottom-2 grid grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4">
+            {/* <div className="z-20 absolute bottom-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4">
               {games[index].short_screenshots
                 .slice(1, 5)
                 .map((img: any, idx: any) => (
@@ -91,12 +89,32 @@ export default function PopularGames() {
                     src={img.image}
                     alt="hi"
                     key={idx}
-                    className="h-38 md:h-40 w-full rounded-2xl object-fill md:object-cover"
+                    className="h-50 md:h-40 w-full rounded-2xl object-cover"
                   />
                 ))}
-            </div>
+            </div> */}
+            <ImageCarousel
+              images={games[index].short_screenshots}
+              className="hidden md:grid absolute bottom-4"
+            />
           </div>
         )}
+        <ImageCarousel
+          images={games[index].short_screenshots}
+          className="grid relative top-4 md:hidden"
+        />
+        {/* <div className="z-20 absolute bottom-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4">
+          {games[index].short_screenshots
+            .slice(1, 5)
+            .map((img: any, idx: any) => (
+              <img
+                src={img.image}
+                alt="hi"
+                key={idx}
+                className="h-50 md:h-40 w-full rounded-2xl object-cover"
+              />
+            ))}
+        </div> */}
       </motion.div>
     </motion.div>
   );
