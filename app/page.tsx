@@ -1,4 +1,4 @@
-import PopularGames from "./components/PopularGames";
+import { PopularGames } from "./sections";
 
 export default function Home() {
   return (
