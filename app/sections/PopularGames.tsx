@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPopularGames } from "../lib/fetchGames";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Heading } from "../components";
 import Image from "next/image";
 
 export default function PopularGames() {
@@ -32,7 +33,7 @@ export default function PopularGames() {
         ease: "linear",
       }}
     >
-      {/* <Heading title="Top 5 Games since 2019" /> */}
+      <Heading title="Top 5 Games since 2019" />
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -51,7 +52,7 @@ export default function PopularGames() {
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="py-4 md:py-0 z-10  md:absolute md:top-10 md:left-20 font-black text-black dark:text-white md:text-white text-2xl leading-normal tracking-widest"
+              className="py-4 md:py-0 z-10  md:absolute md:top-10 md:left-20 font-black text-2xl text-black md:text-white leading-normal tracking-widest"
             >
               {games[index].name}
             </motion.h2>
@@ -59,12 +60,12 @@ export default function PopularGames() {
               initial={{ x: 100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="hidden z-10 md:block absolute top-20 left-20 font-thin uppercase text-white  text-6xl opacity-40 leading-normal tracking-widest"
+              className="hidden z-10 md:block absolute top-20 left-20 font-thin uppercase text-black md:text-white text-6xl opacity-40 leading-normal tracking-widest"
             >
               {games[index].genres[0].name}
             </motion.h3>
 
-            <div className="mt-8 z-10 bg-transparent md:absolute md:bottom-2 grid grid-cols-2 md:grid-cols-4 w-full gap-4">
+            <div className="mt-8 z-10 bg-transparent md:absolute md:bottom-2 grid grid-cols-2 md:grid-cols-4 md:px-8 w-full gap-4">
               {games[index].short_screenshots
                 .slice(1, 5)
                 .map((img: any, idx: any) => (
