@@ -10,14 +10,14 @@ export default function layout({ children }: { children: React.ReactNode }) {
         <div className="bg-red-500 w-[300px] fixed left-0 top-30 h-screen">
           <div className="flex flex-col items-start">
             <h3>New Releases</h3>
-            <Link href="/releases/last_30" prefetch={true}>
+            <Link href="/releases/last_month" prefetch={true}>
               Last 30 days
             </Link>
             <Link href="/releases/this_week" prefetch={true}>
               This week
             </Link>
-            <Link href="/releases/last_week" prefetch={true}>
-              Last week
+            <Link href="/releases/next_month" prefetch={true}>
+              Next month
             </Link>
           </div>
         </div>
