@@ -23,7 +23,7 @@ export default function GamesList({ games }: GamesProps) {
   ));
   return (
     <Masonry
-      breakpointCols={3}
+      breakpointCols={breakpoints}
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >

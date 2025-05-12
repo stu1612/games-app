@@ -1,4 +1,5 @@
 import Navbar from "@/app/components/Navbar";
+import Sidebar from "@/app/components/Sidebar";
 import Link from "next/link";
 import React from "react";
 
@@ -6,9 +7,8 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Navbar />
-
       <div className="bg-blue-400 relative top-30 min-h-screen flex flex-row gap-12">
-        <div className="bg-red-500 w-[300px] p-8">
+        {/* <div className="bg-red-500 w-[300px] p-8">
           <div className="bg-white h-full">
             <div className="flex flex-col items-start">
               <h3>New Releases</h3>
@@ -33,7 +33,8 @@ export default function layout({ children }: { children: React.ReactNode }) {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
+        <Sidebar />
         <div className="bg-red-800 flex-1 p-8">
           <div className="bg-white h-full ">{children}</div>
         </div>
