@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 
 // components
 import { Heading, ImageCarousel } from "../components";
+import Link from "next/link";
 
 export default function PopularGames() {
   // state
@@ -25,19 +26,21 @@ export default function PopularGames() {
     staleTime: 1000 * 60 * 10,
   });
 
+  const games = data?.results ?? [];
+
   useEffect(() => {
+    const length = games?.length ?? 0;
+    if (length === 0) return;
+
     const timer = setInterval(() => {
-      setIndex((index + 1) % 5);
+      setIndex((prev) => (prev + 1) % length);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [index]);
+  }, [games, index]);
 
   if (isLoading) return <p>Loading games...</p>;
   if (isError) return <p>Something went wrong!</p>;
-
-  // components
-  const games = data?.results ?? [];
 
   return (
     <motion.div
@@ -89,6 +92,13 @@ export default function PopularGames() {
               >
                 {games[index].genres[0].name}
               </motion.h3>
+            </div>
+            <div className="absolute top-8 right-8">
+              <Link href={"/games"}>
+                <button className="bg-white px-6 py-4 cursor-pointer">
+                  Enter
+                </button>
+              </Link>
             </div>
             {games[index] && games[index].short_screenshots && (
               <ImageCarousel
