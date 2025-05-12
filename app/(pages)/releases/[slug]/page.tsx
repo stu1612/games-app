@@ -1,20 +1,29 @@
 import { apiKey, baseURL } from "@/app/lib/api";
 import { fetchGamesFromAPI } from "@/app/lib/fetcher";
+import { releasedGameFilters, releasesSlug } from "@/app/lib/api";
+import GamesList from "@/app/components/GamesList";
+
+type GamesProps = {
+  games: {
+    name: string;
+  }[];
+};
 
 export async function generateStaticParams() {
-  const url = `${baseURL}/games?key=${apiKey}`;
-  const { results } = await fetchGamesFromAPI(url);
-  console.log(results);
-  return results;
+  return Object.keys(releasedGameFilters).map((slug) => ({ slug }));
 }
 
 export default async function Releases({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: releasesSlug };
 }) {
   const { slug } = await params;
-  console.log(slug);
+  const query = releasedGameFilters[slug];
 
-  return <div>My Post: {slug}</div>;
+  const url = `${baseURL}/games?${query}&key=${apiKey}`;
+
+  const { results: games } = await fetchGamesFromAPI(url);
+
+  return <GamesList games={games} />;
 }
