@@ -1,27 +1,26 @@
 import { apiKey, baseURL } from "@/app/lib/api";
 import { fetchGamesFromAPI } from "@/app/lib/fetcher";
-import { releasedGameFilters, releasesSlug } from "@/app/lib/api";
+import { popularGameFilters, popularSlug } from "@/app/lib/api";
 import GamesList from "@/app/components/GamesList";
 
-type GamesProps = {
-  games: {
-    name: string;
-  }[];
-};
+// type GamesProps = {
+//   games: {
+//     name: string;
+//   }[];
+// };
 
 export async function generateStaticParams() {
-  return Object.keys(releasedGameFilters).map((slug) => ({ slug }));
+  return Object.keys(popularGameFilters).map((slug) => ({ slug }));
 }
 
 export default async function Releases({
   params,
 }: {
-  params: { slug: releasesSlug };
+  params: { slug: popularSlug };
 }) {
   const { slug } = await params;
   console.log(slug);
-
-  const query = releasedGameFilters[slug];
+  const query = popularGameFilters[slug];
 
   const url = `${baseURL}/games?${query}&key=${apiKey}`;
 

@@ -47,7 +47,7 @@ export const releasedGameFilters = {
 
 export const popularGameFilters = {
   best_of_the_year: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
-  popular_in_2024: `dates=2024-01-01,2024-12-30&ordering=-added&page_size=20`,
+  popular_last_year: `dates=${lastYear},${currentDate}&ordering=-added&page_size=20`,
   all_stars: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`,
 } as const;
 
