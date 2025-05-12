@@ -43,6 +43,16 @@ html {
 }
 
 @layer utilities {
+  .my-masonry-grid {
+    display: flex;
+    justify-content: center;
+    margin-left: 0px; /* gutter size offset */
+    width: auto;
+  }
+  .my-masonry-grid_column {
+    padding: 0px 15px 15px 15px; /* gutter size */
+    background-clip: padding-box;
+  }
 }
 
 @layer components {

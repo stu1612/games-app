@@ -6,7 +6,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Navbar />
-      <div className="bg-blue-400 relative top-30 h-screen flex gap-4">
+      <div className="bg-blue-400 relative top-30 min-h-screen flex gap-4">
         <div className="bg-red-500 w-[300px] fixed left-0 top-30 h-screen">
           <div className="flex flex-col items-start">
             <h3>New Releases</h3>
@@ -31,7 +31,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
             </Link>
           </div>
         </div>
-        <div className="bg-red-700 w-full absolute left-[300px]">
+        <div className="bg-red-700 w-full absolute left-[300px] overflow-y-auto">
           {children}
         </div>
       </div>

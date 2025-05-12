@@ -1,4 +1,13 @@
-import React from "react";
+"use client";
+
+import Masonry from "react-masonry-css";
+
+const breakpoints = {
+  default: 4,
+  1500: 3,
+  1200: 2,
+  980: 1,
+};
 
 type GamesProps = {
   games: {
@@ -9,8 +18,16 @@ type GamesProps = {
 export default function GamesList({ games }: GamesProps) {
   const gamesList = games?.map((game) => (
     <div key={game.name}>
-      <p className="z-20 text-white">{game.name}</p>
+      <p className="z-20 text-black">{game.name}</p>
     </div>
   ));
-  return <div className="w-full">{gamesList}</div>;
+  return (
+    <Masonry
+      breakpointCols={3}
+      className="my-masonry-grid"
+      columnClassName="my-masonry-grid_column"
+    >
+      {gamesList}
+    </Masonry>
+  );
 }
