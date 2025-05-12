@@ -27,6 +27,26 @@ export default function Sidebar() {
           <Link href="/popular/all_stars" prefetch={true}>
             All stars
           </Link>
+          <h3>Platforms</h3>
+          <Link href="/platform/playstation_5" prefetch={true}>
+            Playstation 5
+          </Link>
+          <Link href="/platform/xbox_1" prefetch={true}>
+            Xbox One
+          </Link>
+          <Link href="/platform/nintendo_switch" prefetch={true}>
+            Nintendo Switch
+          </Link>
+          <h3>Genres</h3>
+          <Link href="/genre/action" prefetch={true}>
+            Action
+          </Link>
+          <Link href="/genre/adventure" prefetch={true}>
+            Adventure
+          </Link>
+          <Link href="/genre/rpg" prefetch={true}>
+            RPG
+          </Link>
         </div>
       </div>
     </div>
