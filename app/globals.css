@@ -53,6 +53,10 @@ html {
     padding: 0px 15px 15px 15px; /* gutter size */
     background-clip: padding-box;
   }
+
+  .card {
+    margin-bottom: 2rem !important;
+  }
 }
 
 @layer components {

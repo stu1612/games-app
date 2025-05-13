@@ -1,16 +1,53 @@
-// type GameCardProps = {
-//     game : {
+"use client";
 
-//     }
-// }
+import { useState } from "react";
+import getPlatform from "../lib/getPlatform";
+import Link from "next/link";
+import { HiOutlineChevronRight } from "react-icons/hi";
+import formatDate from "../utils/formatDate";
 
-export default function GameCard({ game }) {
+type GamePlatform = {
+  platform: {
+    name: string;
+  };
+};
+
+type Genre = {
+  name: string;
+  slug: String;
+  id: number;
+};
+
+type Game = {
+  background_image: string;
+  name: string;
+  parent_platforms?: GamePlatform[];
+  genres?: Genre[];
+  released: string;
+  slug: string;
+};
+
+type GameCardProps = {
+  game: Game;
+};
+
+export default function GameCard({ game }: GameCardProps) {
+  // state
+  const [onHover, setOnHover] = useState(false);
+
   console.log(game);
+
+  // voids
+  const handleHover = () => {
+    if (window.innerWidth < 760) return;
+    else setOnHover((prev) => !prev);
+  };
+
   return (
     <div
-      className="rounded-2xl h-fit overflow-visible flex flex-col cards cursor-pointer mb-8 relative"
-      // onMouseEnter={handleHover}
-      // onMouseLeave={handleHover}
+      className=" rounded-2xl h-fit overflow-visible flex flex-col bg-slate-200 cursor-pointer  relative"
+      onMouseEnter={handleHover}
+      onMouseLeave={handleHover}
     >
       <div className="h-44 ">
         <img
@@ -23,27 +60,51 @@ export default function GameCard({ game }) {
         <div className="flex flex-row ">
           {game.parent_platforms?.map((item, idx) => (
             <div className="h-5 w-5 mr-2" key={idx}>
-              {/* {getPlatform(item.platform.name)} */}
+              {getPlatform(item.platform.name)}
             </div>
           ))}
         </div>
 
         <h1 className="relative w-auto font-bold text-2xl mt-2 pr-12">
           {game.name}
-          <span
-            className="absolute bottom-0"
-            //   onMouseEnter={openTooltip}
-            //   onMouseLeave={openTooltip}
-          >
-            {/* {getRatings(returnFirstIndexRating)}
-            {showTooltip && <Tooltip message={returnFirstIndexRating} />} */}
-          </span>
         </h1>
-        {/* {onHover && <BottomContent game={game} />} */}
+        {onHover && <GameContent game={game} />}
         <div className="block md:hidden">
-          {/* <BottomContent game={game} /> */}
+          <GameContent game={game} />
         </div>
       </div>
+    </div>
+  );
+}
+
+function GameContent({ game }: GameCardProps) {
+  // properties
+  const genres = game.genres?.map((genre) => (
+    <small
+      key={genre.id}
+      className="mr-2 underline underline-offset-4 text-[10px]"
+    >
+      {genre.name}
+    </small>
+  ));
+
+  return (
+    <div className="flex flex-col w-full md:absolute bg-slate-200 md:left-0 z-10 px-4 pt-4 py-8 rounded-b-2xl">
+      <div className="decoration-1 py-4 flex flex-row justify-between border-b-[0.5px] border-text border-zinc-500 border-solid w-full">
+        <small className="text-zinc-500">Released Date: </small>
+        <small>{formatDate(game.released)}</small>
+      </div>
+
+      <div className="decoration-1 py-4 flex flex-row justify-between items-center w-full">
+        <small className="text-zinc-500">Genres:</small>
+        <div className="flex flex-wrap justify-end">{genres}</div>
+      </div>
+      <Link href={`/game/${game.slug}`}>
+        <button className="bg-[#ababab] py-3 rounded-md flex flex-row items-center justify-between w-full px-4">
+          <p className="text-sm">See Details</p>
+          <HiOutlineChevronRight />
+        </button>
+      </Link>
     </div>
   );
 }

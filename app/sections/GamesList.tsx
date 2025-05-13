@@ -26,7 +26,9 @@ export default function GamesList({ games }: GamesProps) {
   //   </div>
   // ));
   const gamesList = games?.map((game) => (
-    <GameCard game={game} key={game.name} />
+    <div key={game.name} className="card">
+      <GameCard game={game} />
+    </div>
   ));
   return (
     <Masonry
