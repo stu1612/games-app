@@ -1,3 +1,4 @@
+// npm
 import { twMerge } from "tailwind-merge";
 
 type ImageCarouselProps = {
@@ -10,12 +11,6 @@ export default function ImageCarousel({
   className,
 }: ImageCarouselProps) {
   return (
-    // <div
-    //   className={twMerge(
-    //     "z-20 absolute bottom-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4",
-    //     className
-    //   )}
-    // >
     <div
       className={twMerge(
         "z-20 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-4 md:px-8 w-full gap-4",

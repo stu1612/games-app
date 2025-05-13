@@ -1,6 +1,9 @@
 "use client";
 
+// react
 import { useState } from "react";
+
+// components
 import MobileSidebar from "./MobileSidebar";
 
 export default function Navbar() {

@@ -1,5 +1,6 @@
 "use client";
 
+// framer
 import { motion } from "framer-motion";
 
 export default function Heading({ title }: { title: string }) {
