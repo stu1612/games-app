@@ -6,6 +6,12 @@ import Masonry from "react-masonry-css";
 // components
 import { GameCard } from "../components";
 
+import { Game } from "../types/games";
+
+type GameListProps = {
+  games: Game[];
+};
+
 const breakpoints = {
   default: 4,
   1500: 3,
@@ -13,18 +19,7 @@ const breakpoints = {
   980: 1,
 };
 
-type GamesProps = {
-  games: {
-    name: string;
-  }[];
-};
-
-export default function GamesList({ games }: GamesProps) {
-  // const gamesList = games?.map((game) => (
-  //   <div key={game.name}>
-  //     <p className="z-20 text-black">{game.name}</p>
-  //   </div>
-  // ));
+export default function GamesList({ games }: GameListProps) {
   const gamesList = games?.map((game) => (
     <div key={game.name} className="card">
       <GameCard game={game} />

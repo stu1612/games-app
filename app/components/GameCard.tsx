@@ -5,31 +5,7 @@ import getPlatform from "../lib/getPlatform";
 import Link from "next/link";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import formatDate from "../utils/formatDate";
-
-type GamePlatform = {
-  platform: {
-    name: string;
-  };
-};
-
-type Genre = {
-  name: string;
-  slug: String;
-  id: number;
-};
-
-type Game = {
-  background_image: string;
-  name: string;
-  parent_platforms?: GamePlatform[];
-  genres?: Genre[];
-  released: string;
-  slug: string;
-};
-
-type GameCardProps = {
-  game: Game;
-};
+import { GameCardProps } from "../types/games";
 
 export default function GameCard({ game }: GameCardProps) {
   // state
