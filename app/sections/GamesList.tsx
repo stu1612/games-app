@@ -40,7 +40,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchGamesFromAPI } from "../lib/fetcher";
-import { getFilteredQueriesBySlug, queriesBySlug } from "../lib/api";
+import {
+  URLSlug,
+  getFilteredQueriesBySlug,
+  queriesBySlug,
+  slugToQueryKey,
+} from "../lib/api";
 import { apiKey, baseURL } from "@/app/lib/api";
 import Masonry from "react-masonry-css";
 
@@ -56,8 +61,10 @@ const breakpoints = {
   980: 1,
 };
 
-export default function GamesList({ slug }: { slug: queriesBySlug }) {
-  const query = getFilteredQueriesBySlug[slug];
+export default function GamesList({ slug }: { slug: URLSlug }) {
+  const key = slugToQueryKey[slug];
+
+  const query = getFilteredQueriesBySlug[key];
   const url = `${baseURL}/games?${query}&key=${apiKey}`;
 
   const { data: games, isLoading } = useQuery({
