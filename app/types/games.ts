@@ -10,8 +10,13 @@ export type Genre = {
   id: number;
 };
 
+export type Screenshot = {
+  image: string;
+};
+
 export type Game = {
   background_image: string;
+  short_screenshots?: Screenshot[];
   name: string;
   parent_platforms?: GamePlatform[];
   genres?: Genre[];

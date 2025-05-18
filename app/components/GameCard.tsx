@@ -8,6 +8,7 @@ import formatDate from "../utils/formatDate";
 import { GameCardProps } from "../types/games";
 
 export default function GameCard({ game }: GameCardProps) {
+  console.log(game);
   // state
   const [onHover, setOnHover] = useState(false);
 
@@ -24,11 +25,15 @@ export default function GameCard({ game }: GameCardProps) {
       onMouseLeave={handleHover}
     >
       <div className="h-44 ">
-        <img
-          src={game.background_image}
-          alt={game.name}
-          className="h-full w-full rounded-t-2xl object-cover"
-        />
+        {game.background_image ? (
+          <img
+            src={game.background_image}
+            alt={game.name}
+            className="h-full w-full rounded-t-2xl object-cover"
+          />
+        ) : (
+          <p>Image Not available</p>
+        )}
       </div>
       <div className="pt-4 px-4 pb-8">
         <div className="flex flex-row ">

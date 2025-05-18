@@ -2,7 +2,7 @@ export const navLinks = [
   {
     title: "New Releases",
     links: [
-      { label: "Last 30 days", href: "/releases/last-month" },
+      { label: "Last month", href: "/releases/last-month" },
       { label: "This week", href: "/releases/this-week" },
       { label: "Next month", href: "/releases/next-month" },
     ],
