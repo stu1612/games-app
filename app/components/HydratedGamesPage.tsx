@@ -16,7 +16,8 @@ import {
 import { fetchGamesFromAPI } from "@/app/lib/fetcher";
 
 // components
-import GamesList from "@/app/sections/GamesGrid";
+import GamesGrid from "@/app/sections/GamesGrid";
+import { slugToString } from "../utils/slugToString";
 
 /**
  * Generates the static paths for the dynamic `popular/[slug]` route.
@@ -40,38 +41,28 @@ export async function generateStaticParams() {
  * - Wraps the client component in <HydrationBoundary> to hydrate data on the client
  */
 
-export default async function PopularGames({
-  params,
-}: {
-  params: { slug: URLSlug };
-  // slug is type defined with URLSlug because
-  // export type URLSlug = keyof typeof slugToQueryKey in lib/api.ts
-  // contains all valid url slugs expected in app
-}) {
-  // tanstack code
+type PageProps = {
+  url: string;
+  slug: string;
+};
+
+export default async function HydratedGamesPage(props: PageProps) {
+  const { slug, url } = props;
   const queryClient = new QueryClient();
-
-  // Destructured slug from route params (eg 'best-of-year')
-  // next js says that await is not needed - but next docs explain it is required because its async function - if removed console will flag error
-  const { slug } = await params;
-
-  // Object literal map slug to query Key (eg 'lastMonth, nextMonth')
-  const key = slugToQueryKey[slug];
-
-  // get the date filtered query string for returned key (eg dates=${string},${string}&ordering=-added&page_size=20)
-  const query = getFilteredQueriesBySlug[key];
-
-  // construct api url string required to fetch dames
-  const url = `${baseURL}/games?${query}&key=${apiKey}`;
 
   // TANSTACK : Prefetch game data on the server to enable hydration on the client
   await queryClient.prefetchQuery({
     queryKey: ["games", slug], // unique key 'games' keep the cache isolated to this request
     queryFn: () => fetchGamesFromAPI(url),
   });
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <GamesList slug={slug} />
+      <GamesGrid
+        title={slugToString(slug)}
+        url={url}
+        queryKey={["games", slug]}
+      />
     </HydrationBoundary>
   );
 }

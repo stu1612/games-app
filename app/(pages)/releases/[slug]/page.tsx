@@ -16,7 +16,8 @@ import {
 import { fetchGamesFromAPI } from "@/app/lib/fetcher";
 
 // components
-import GamesList from "@/app/sections/GamesList";
+import GamesList from "@/app/sections/GamesGrid";
+import HydratedGamesPage from "@/app/components/HydratedGamesPage";
 
 /**
  * Generates the static paths for the dynamic `popular/[slug]` route.
@@ -65,13 +66,9 @@ export default async function ReleasedGames({
   const url = `${baseURL}/games?${query}&key=${apiKey}`;
 
   // TANSTACK : Prefetch game data on the server to enable hydration on the client
-  await queryClient.prefetchQuery({
-    queryKey: ["games", slug], // unique key 'games' keep the cache isolated to this request
-    queryFn: () => fetchGamesFromAPI(url),
-  });
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <GamesList slug={slug} />
-    </HydrationBoundary>
-  );
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["games", slug], // unique key 'games' keep the cache isolated to this request
+  //   queryFn: () => fetchGamesFromAPI(url),
+  // });
+  return <HydratedGamesPage url={url} slug={slug} />;
 }

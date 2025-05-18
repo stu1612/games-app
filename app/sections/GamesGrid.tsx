@@ -55,20 +55,28 @@ const breakpoints = {
  * @returns JSX element containing the title and a responsive masonry grid of game cards.
  */
 
-export default function GamesList({ slug }: { slug: URLSlug }) {
+export default function GamesGrid({
+  title,
+  url,
+  queryKey,
+}: {
+  title: string;
+  url: string;
+  queryKey: string[];
+}) {
   // map slug to query key (e.g. 'best-of-the-year' -> 'bestOfTheYear')
-  const key = slugToQueryKey[slug];
+  // const key = slugToQueryKey[slug];
 
   // Retrieve the actual API query string for the selected filter
   // Example - bestOfTheYear: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
-  const query = getFilteredQueriesBySlug[key];
+  // const query = getFilteredQueriesBySlug[key];
 
   // construct full RAWG api url to fetch popular games
-  const url = `${baseURL}/games?${query}&key=${apiKey}`;
+  // const url = `${baseURL}/games?${query}&key=${apiKey}`;
 
   // Fetch games using React Query, keyed by ['games', slug] is important - do not replace 'games'
   const { data: games, isLoading } = useQuery({
-    queryKey: ["games", slug],
+    queryKey: queryKey,
     queryFn: () => fetchGamesFromAPI(url),
   });
 
@@ -84,9 +92,7 @@ export default function GamesList({ slug }: { slug: URLSlug }) {
   return (
     <>
       <div className="px-4">
-        <h2 className="font-black text-6xl capitalize p-0 m-0">
-          {slugToString(slug)}
-        </h2>
+        <h2 className="font-black text-6xl capitalize p-0 m-0">{title}</h2>
       </div>
       <Masonry
         breakpointCols={breakpoints}

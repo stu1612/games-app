@@ -1,2 +1,2 @@
 export { default as PopularGames } from "./PopularGames";
-export { default as GamesList } from "./GamesList";
+export { default as GamesGrid } from "./GamesGrid";
