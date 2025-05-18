@@ -29,33 +29,37 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-import { apiKey, baseURL } from "@/app/lib/api";
+import { apiKey, baseURL, slugToQueryKey, URLSlug } from "@/app/lib/api";
 import { fetchGamesFromAPI } from "@/app/lib/fetcher";
 import { getFilteredQueriesBySlug, queriesBySlug } from "@/app/lib/api";
 import GamesList from "@/app/sections/GamesList";
 
-import React from "react";
+export async function generateStaticParams() {
+  return Object.keys(slugToQueryKey).map((slug) => ({ slug }));
+}
 
 export default async function PopularGames({
   params,
 }: {
-  params: { slug: queriesBySlug };
+  params: { slug: URLSlug };
 }) {
   const queryClient = new QueryClient();
 
   const { slug } = await params;
 
-  const query = getFilteredQueriesBySlug[slug];
+  const key = slugToQueryKey[slug];
+
+  const query = getFilteredQueriesBySlug[key];
 
   const url = `${baseURL}/games?${query}&key=${apiKey}`;
 
   await queryClient.prefetchQuery({
-    queryKey: ["popluar", slug],
+    queryKey: ["popular", slug],
     queryFn: () => fetchGamesFromAPI(url),
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <GamesList query={query} />
+      <GamesList slug={slug} />
     </HydrationBoundary>
   );
 }

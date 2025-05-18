@@ -52,16 +52,27 @@ const formattedNext7Days = next7Days.toISOString().slice(0, 10);
 // } as const;
 
 export const getFilteredQueriesBySlug = {
-  top_five: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=5`,
-  last_month: `dates=${formattedLast30Days},${currentDate}&ordering=-added&page_size=20`,
-  this_week: `dates=${formattedLast7Days},${currentDate}&ordering=-added&page_size=10`,
-  next_month: `dates=${currentDate},${formattedNext30Days}&ordering=-released&page_size=20`,
-  best_of_the_year: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
-  popular_last_year: `dates=${lastYear},${currentDate}&ordering=-added&page_size=20`,
-  all_stars: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`,
+  topFive: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=5`,
+  lastMonth: `dates=${formattedLast30Days},${currentDate}&ordering=-added&page_size=20`,
+  thisWeek: `dates=${formattedLast7Days},${currentDate}&ordering=-added&page_size=10`,
+  nextMonth: `dates=${currentDate},${formattedNext30Days}&ordering=-released&page_size=20`,
+  bestOfTheYear: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
+  popularLastYear: `dates=${lastYear},${currentDate}&ordering=-added&page_size=20`,
+  allStars: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`,
 } as const;
 
-export type queriesBySlug = keyof typeof getFilteredQueriesBySlug;
+export const slugToQueryKey = {
+  "top-five": "topFive",
+  "last-month": "lastMonth",
+  "this-week": "thisWeek",
+  "next-month": "nextMonth",
+  "best-of-the-year": "bestOfTheYear",
+  "popular-last-year": "popularLastYear",
+  "all-stars": "allStars",
+} as const;
+
+// export type queriesBySlug = keyof typeof getFilteredQueriesBySlug;
+export type URLSlug = keyof typeof slugToQueryKey;
 
 // export type releasesSlug = keyof typeof getReleasedGamesBySlug;
 // export type popularSlug = keyof typeof getPopularGamesBySlug;

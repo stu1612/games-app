@@ -11,8 +11,6 @@ export default function GameCard({ game }: GameCardProps) {
   // state
   const [onHover, setOnHover] = useState(false);
 
-  console.log(game);
-
   // voids
   const handleHover = () => {
     if (window.innerWidth < 760) return;
