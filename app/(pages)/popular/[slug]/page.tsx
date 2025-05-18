@@ -53,10 +53,8 @@ export default async function PopularGames({
 
   const url = `${baseURL}/games?${query}&key=${apiKey}`;
 
-  console.log("url ", url);
-
   await queryClient.prefetchQuery({
-    queryKey: ["popular", slug],
+    queryKey: ["games", slug],
     queryFn: () => fetchGamesFromAPI(url),
   });
   return (
