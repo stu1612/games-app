@@ -6,45 +6,42 @@ import {
 } from "@tanstack/react-query";
 
 // libs
-import {
-  apiKey,
-  baseURL,
-  slugToQueryKey,
-  URLSlug,
-  getFilteredQueriesBySlug,
-} from "@/app/lib/api";
 import { fetchGamesFromAPI } from "@/app/lib/fetcher";
 
 // components
 import GamesGrid from "@/app/sections/GamesGrid";
 import { slugToString } from "../utils/slugToString";
 
-/**
- * Generates the static paths for the dynamic `popular/[slug]` route.
- * Ensures that all slugs defined in `slugToQueryKey` are statically generated at build time.
- */
-export async function generateStaticParams() {
-  return Object.keys(slugToQueryKey).map((slug) => ({ slug }));
-}
-
-/**
- * Renders a page of popular games based on a dynamic category (slug).
- *
- * Workflow:
- * - Recieves a route slug ('best-of-the-year', 'popular-2024', 'all-stars')
- * - Maps the slug to a query key (e.g., 'bestOfTheYear') using `slugToQueryKey`
- * - Retrieves the actual query string from `getFilteredQueriesBySlug`
- * - EXAMPLE - if slug is 'all-stars' - it is mapped to the key 'allStars' via `slugToQueryKey`
- * - EXAMPLE - which then retrives query string `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`
- * - Constructs the RAWG API URL with query string
- * - Prefetches data on the server via React Query
- * - Wraps the client component in <HydrationBoundary> to hydrate data on the client
- */
-
 type PageProps = {
   url: string;
   slug: string;
 };
+
+/**
+ * HydratedGamesPage — Server Component
+ *
+ * Purpose:
+ * - Prefetches and hydrates game data on the server before rendering a client component.
+ * - Uses TanStack React Query to fetch game data based on a dynamic slug (e.g., 'popular-2024').
+ * - Wraps the client-side `GamesGrid` component in a <HydrationBoundary> to enable seamless hydration.
+ *
+ * Workflow:
+ * 1. Receives props:
+ *    - `slug`: dynamic route parameter (e.g., 'popular-2024', 'best-of-the-year')
+ *    - `url`: fully constructed RAWG API URL for fetching game data
+ *
+ * 2. Uses a new `QueryClient` instance to prefetch data server-side with `queryClient.prefetchQuery(...)`.
+ *
+ * 3. Dehydrates the fetched state with `dehydrate(queryClient)` and passes it to `<HydrationBoundary>`.
+ *
+ * 4. Renders the client-side `GamesGrid` component inside the hydration boundary.
+ *    - `GamesGrid` consumes the prehydrated data using `useQuery` with the same `queryKey`.
+ *
+ * Notes:
+ * - This component is NOT marked with `"use client"`, so it runs exclusively on the server.
+ * - This approach avoids redundant fetching on the client and enables instant display of content.
+ * - Hydration relies on consistent `queryKey` usage between prefetch and client query.
+ */
 
 export default async function HydratedGamesPage(props: PageProps) {
   const { slug, url } = props;

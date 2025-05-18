@@ -6,16 +6,6 @@ import Masonry from "react-masonry-css";
 
 // libs
 import { fetchGamesFromAPI } from "../lib/fetcher";
-import {
-  URLSlug,
-  getFilteredQueriesBySlug,
-  slugToQueryKey,
-  apiKey,
-  baseURL,
-} from "../lib/api";
-
-// utils
-import { slugToString } from "../utils/slugToString";
 
 // components
 import { GameCard } from "../components";
@@ -34,47 +24,38 @@ const breakpoints = {
   980: 1,
 };
 
-/**
- * GamesList Component
- *
- * Displays a list of games fetched from the RAWG API based on the provided slug.
- * It uses React Query for data fetching and caching, and react-masonry-css
- * for a responsive, Pinterest-style grid layout.
- *
- * @param slug - A URLSlug that identifies the game category or filter to fetch.
- *
- * Workflow:
- * - Maps the `slug` to a query key using `slugToQueryKey`.
- * - Uses the query key to get the corresponding date-filtered query string from `getFilteredQueriesBySlug`.
- * - Constructs the API URL using the base URL, query string, and API key.
- * - Uses `useQuery` from React Query to fetch games from the API.
- * - Shows a loading state while data is being fetched.
- * - Maps over the fetched games and renders a `GameCard` for each inside a Masonry grid.
- * - Converts the slug to a readable string title using `slugToString` for display.
- *
- * @returns JSX element containing the title and a responsive masonry grid of game cards.
- */
-
-export default function GamesGrid({
-  title,
-  url,
-  queryKey,
-}: {
+type GameProps = {
   title: string;
   url: string;
   queryKey: string[];
-}) {
-  // map slug to query key (e.g. 'best-of-the-year' -> 'bestOfTheYear')
-  // const key = slugToQueryKey[slug];
+};
 
-  // Retrieve the actual API query string for the selected filter
-  // Example - bestOfTheYear: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
-  // const query = getFilteredQueriesBySlug[key];
+/**
+ * GamesGrid Component
+ *
+ * Renders a grid of game cards based on the provided URL and query key.
+ * This component is intended to run on the client and assumes data has already been prefetched
+ * and hydrated using TanStack React Query's <HydrationBoundary>.
+ *
+ * Props:
+ * - title (string): The title displayed above the grid (e.g., "Best of the Year").
+ * - url (string): The API endpoint to fetch game data from. Must match the one used during server-side prefetch.
+ * - queryKey (string[]): A unique query key for React Query (e.g., ['games', 'best-of-the-year']).
+ *                        This key should match the one used in the server component to ensure proper hydration.
+ *
+ * Usage:
+ * <GamesGrid
+ *   title="Popular in 2024"
+ *   url="https://api.rawg.io/api/games?dates=2024-01-01,2024-12-31&ordering=-added&page_size=20&key=YOUR_API_KEY"
+ *   queryKey={['games', 'popular-2024']}
+ * />
+ *
+ * Notes:
+ * - This component relies on React Query's `useQuery()` hook to access hydrated data.
+ * - If hydration is not present, it will fall back to fetching on the client.
+ */
 
-  // construct full RAWG api url to fetch popular games
-  // const url = `${baseURL}/games?${query}&key=${apiKey}`;
-
-  // Fetch games using React Query, keyed by ['games', slug] is important - do not replace 'games'
+export default function GamesGrid({ title, url, queryKey }: GameProps) {
   const { data: games, isLoading } = useQuery({
     queryKey: queryKey,
     queryFn: () => fetchGamesFromAPI(url),
@@ -82,8 +63,7 @@ export default function GamesGrid({
 
   if (isLoading) return <p>Loading...</p>;
 
-  // mapped fecthed games to render GameCards inside Masonry Grid
-  const gamesList = games?.results.map((game: Game) => (
+  const gamesGrid = games?.results.map((game: Game) => (
     <div key={game.name} className="card">
       <GameCard game={game} />
     </div>
@@ -99,7 +79,7 @@ export default function GamesGrid({
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-        {gamesList}
+        {gamesGrid}
       </Masonry>
     </>
   );

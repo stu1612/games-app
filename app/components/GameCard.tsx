@@ -8,7 +8,6 @@ import formatDate from "../utils/formatDate";
 import { GameCardProps } from "../types/games";
 
 export default function GameCard({ game }: GameCardProps) {
-  console.log(game);
   // state
   const [onHover, setOnHover] = useState(false);
 
