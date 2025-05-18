@@ -35,22 +35,34 @@ const formattedLast7Days = last7Days.toISOString().slice(0, 10);
 const formattedNext7Days = next7Days.toISOString().slice(0, 10);
 
 // slug dates
-export const topFiveFilters = {
-  top_five: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=5`,
-};
+// export const getTopFiveGames = {
+//   top_five: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=5`,
+// };
 
-export const releasedGameFilters = {
+// export const getReleasedGamesBySlug = {
+//   last_month: `dates=${formattedLast30Days},${currentDate}&ordering=-added&page_size=20`,
+//   this_week: `dates=${formattedLast7Days},${currentDate}&ordering=-added&page_size=10`,
+//   next_month: `dates=${currentDate},${formattedNext30Days}&ordering=-released&page_size=20`,
+// } as const;
+
+// export const getPopularGamesBySlug = {
+//   best_of_the_year: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
+//   popular_last_year: `dates=${lastYear},${currentDate}&ordering=-added&page_size=20`,
+//   all_stars: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`,
+// } as const;
+
+export const getFilteredQueriesBySlug = {
+  top_five: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=5`,
   last_month: `dates=${formattedLast30Days},${currentDate}&ordering=-added&page_size=20`,
   this_week: `dates=${formattedLast7Days},${currentDate}&ordering=-added&page_size=10`,
   next_month: `dates=${currentDate},${formattedNext30Days}&ordering=-released&page_size=20`,
-} as const;
-
-export const popularGameFilters = {
   best_of_the_year: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
   popular_last_year: `dates=${lastYear},${currentDate}&ordering=-added&page_size=20`,
   all_stars: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`,
 } as const;
 
-export type releasesSlug = keyof typeof releasedGameFilters;
-export type popularSlug = keyof typeof popularGameFilters;
-export type topFiveSlug = keyof typeof topFiveFilters;
+export type queriesBySlug = keyof typeof getFilteredQueriesBySlug;
+
+// export type releasesSlug = keyof typeof getReleasedGamesBySlug;
+// export type popularSlug = keyof typeof getPopularGamesBySlug;
+// export type topFiveSlug = keyof typeof getTopFiveGames;
