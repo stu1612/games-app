@@ -1,59 +1,32 @@
-// "use client";
-
-// // npm
-// import Masonry from "react-masonry-css";
-
-// // components
-// import { GameCard } from "../components";
-
-// import { Game } from "../types/games";
-
-// type GameListProps = {
-//   games: Game[];
-// };
-
-// const breakpoints = {
-//   default: 4,
-//   1500: 3,
-//   1200: 2,
-//   980: 1,
-// };
-
-// export default function GamesList({ games }: GameListProps) {
-//   const gamesList = games?.map((game) => (
-//     <div key={game.name} className="card">
-//       <GameCard game={game} />
-//     </div>
-//   ));
-//   return (
-//     <Masonry
-//       breakpointCols={breakpoints}
-//       className="my-masonry-grid"
-//       columnClassName="my-masonry-grid_column"
-//     >
-//       {gamesList}
-//     </Masonry>
-//   );
-// }
-
 "use client";
 
+// npm
 import { useQuery } from "@tanstack/react-query";
+import Masonry from "react-masonry-css";
+
+// libs
 import { fetchGamesFromAPI } from "../lib/fetcher";
 import {
   URLSlug,
   getFilteredQueriesBySlug,
-  queriesBySlug,
   slugToQueryKey,
+  apiKey,
+  baseURL,
 } from "../lib/api";
-import { apiKey, baseURL } from "@/app/lib/api";
-import Masonry from "react-masonry-css";
 
-import { GameCard } from "../components";
-
-import { Game } from "../types/games";
+// utils
 import { slugToString } from "../utils/slugToString";
 
+// components
+import { GameCard } from "../components";
+
+// types
+import { Game } from "../types/games";
+
+/**
+ * Responsive breakpoints for the Masonry grid - from docs.
+ * Defines the number of columns for various viewport widths.
+ */
 const breakpoints = {
   default: 4,
   1500: 3,
@@ -61,12 +34,39 @@ const breakpoints = {
   980: 1,
 };
 
+/**
+ * GamesList Component
+ *
+ * Displays a list of games fetched from the RAWG API based on the provided slug.
+ * It uses React Query for data fetching and caching, and react-masonry-css
+ * for a responsive, Pinterest-style grid layout.
+ *
+ * @param slug - A URLSlug that identifies the game category or filter to fetch.
+ *
+ * Workflow:
+ * - Maps the `slug` to a query key using `slugToQueryKey`.
+ * - Uses the query key to get the corresponding date-filtered query string from `getFilteredQueriesBySlug`.
+ * - Constructs the API URL using the base URL, query string, and API key.
+ * - Uses `useQuery` from React Query to fetch games from the API.
+ * - Shows a loading state while data is being fetched.
+ * - Maps over the fetched games and renders a `GameCard` for each inside a Masonry grid.
+ * - Converts the slug to a readable string title using `slugToString` for display.
+ *
+ * @returns JSX element containing the title and a responsive masonry grid of game cards.
+ */
+
 export default function GamesList({ slug }: { slug: URLSlug }) {
+  // map slug to query key (e.g. 'best-of-the-year' -> 'bestOfTheYear')
   const key = slugToQueryKey[slug];
 
+  // Retrieve the actual API query string for the selected filter
+  // Example - bestOfTheYear: `dates=2025-01-01,${currentDate}&ordering=-rating&page_size=20`,
   const query = getFilteredQueriesBySlug[key];
+
+  // construct full RAWG api url to fetch popular games
   const url = `${baseURL}/games?${query}&key=${apiKey}`;
 
+  // Fetch games using React Query, keyed by ['games', slug] is important - do not replace 'games'
   const { data: games, isLoading } = useQuery({
     queryKey: ["games", slug],
     queryFn: () => fetchGamesFromAPI(url),
@@ -74,6 +74,7 @@ export default function GamesList({ slug }: { slug: URLSlug }) {
 
   if (isLoading) return <p>Loading...</p>;
 
+  // mapped fecthed games to render GameCards inside Masonry Grid
   const gamesList = games?.results.map((game: Game) => (
     <div key={game.name} className="card">
       <GameCard game={game} />
