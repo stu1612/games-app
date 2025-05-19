@@ -72,7 +72,7 @@ export default function GamesGrid({ title, url, queryKey }: GameProps) {
   return (
     <>
       <div className="px-4">
-        <h2 className="font-black text-6xl capitalize p-0 m-0">{title}</h2>
+        <h1 className="font-black text-6xl p-0 m-0">{title}</h1>
       </div>
       <Masonry
         breakpointCols={breakpoints}

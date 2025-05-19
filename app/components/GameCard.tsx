@@ -62,7 +62,7 @@ function GameContent({ game }: GameCardProps) {
       key={genre.id}
       className="mr-2 underline underline-offset-4 text-[10px]"
     >
-      {genre.name}
+      <Link href={`/games/${genre.slug}`}>{genre.name}</Link>
       {genreLength && idx < genreLength - 1 && ","}
     </small>
   ));
