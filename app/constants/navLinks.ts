@@ -2,17 +2,17 @@ export const navLinks = [
   {
     title: "New Releases",
     links: [
-      { label: "Last month", href: "/releases/last-month" },
-      { label: "This week", href: "/releases/this-week" },
-      { label: "Next month", href: "/releases/next-month" },
+      { label: "Last 30 days", href: "/discover/last-month" },
+      { label: "This week", href: "/discover/this-week" },
+      { label: "Next month", href: "/discover/next-month" },
     ],
   },
   {
     title: "Popular",
     links: [
-      { label: "Best of the Year", href: "/popular/best-of-the-year" },
-      { label: "Popular Last Year", href: "/popular/popular-last-year" },
-      { label: "All stars", href: "/popular/all-stars" },
+      { label: "Best of the Year", href: "/discover/best-of-the-year" },
+      { label: "Popular Last Year", href: "/discover/popular-last-year" },
+      { label: "All stars", href: "/discover/all-stars" },
     ],
   },
   {

@@ -11,7 +11,7 @@ import {
 import HydratedGamesPage from "@/app/components/HydratedGamesPage";
 
 /**
- * Generates the static paths for the dynamic `popular/[slug]` route.
+ * Generates the static paths for the dynamic `discover/[slug]` route.
  * Ensures that all slugs defined in `slugToQueryKey` are statically generated at build time.
  */
 export async function generateStaticParams() {
@@ -21,8 +21,9 @@ export async function generateStaticParams() {
 /**
  * Dynamic Route: Renders a page of games filtered by category via slug.
  *
- * This route handles requests to `/popular/[slug]`, where `[slug]` is a dynamic
+ * This route handles requests to `/discover/[slug]`, where `[slug]` is a dynamic
  * segment representing different game categories (e.g. 'best-of-the-year', 'popular-2024').
+ * All slugs for released and popular games will be rendered in discover folder
  *
  * Workflow:
  * 1. Extracts the `slug` from route parameters.
@@ -35,17 +36,17 @@ export async function generateStaticParams() {
  *
  * Notes:
  * - The `slug` param is typed as `URLSlug`, which maps to a known set of slugs via `slugToQueryKey`.
- * - Data is not prefetched here directly; instead, hydration is handled in the client component.
+ * - Data is not prefetched here directly; instead, hydration is handled in the client component - HydratedGamesPage
  *
  */
 
-export default async function PopularGames({
+export default async function Discover({
   params,
 }: {
   params: { slug: URLSlug };
 }) {
-  // Destructured slug from route params (eg 'best-of-year')
-  // next js says that await is not needed - but next docs explain it is required because its async function - if removed console will flag error
+  // Destructured slug from route params (eg 'best-of-year, 'last-week')
+  // IDE says that await is not needed - but its async method and it's in next js docs
   const { slug } = await params;
 
   // mapped slug to query Key (eg 'allStars')

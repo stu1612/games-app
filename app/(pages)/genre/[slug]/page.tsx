@@ -1,11 +1,5 @@
 // libs
-import {
-  apiKey,
-  baseURL,
-  slugToQueryKey,
-  URLSlug,
-  getFilteredQueriesBySlug,
-} from "@/app/lib/api";
+import { apiKey, baseURL, slugToPlatformId, PlatformID } from "@/app/lib/api";
 
 // components
 import HydratedGamesPage from "@/app/components/HydratedGamesPage";
@@ -15,20 +9,20 @@ import HydratedGamesPage from "@/app/components/HydratedGamesPage";
  * Ensures that all slugs defined in `slugToQueryKey` are statically generated at build time.
  */
 export async function generateStaticParams() {
-  return Object.keys(slugToQueryKey).map((slug) => ({ slug }));
+  return Object.keys(slugToPlatformId).map((slug) => ({ slug }));
 }
 
 /**
  * Dynamic Route: Renders a page of games filtered by category via slug.
  *
- * This route handles requests to `/released/[slug]`, where `[slug]` is a dynamic
+ * This route handles requests to `/popular/[slug]`, where `[slug]` is a dynamic
  * segment representing different game categories (e.g. 'best-of-the-year', 'popular-2024').
  *
  * Workflow:
  * 1. Extracts the `slug` from route parameters.
- * 2. Maps the slug to a query key using `slugToQueryKey` (e.g. 'last-month' → 'lastMonth').
+ * 2. Maps the slug to a query key using `slugToQueryKey` (e.g. 'all-stars' → 'allStars').
  * 3. Uses the query key to retrieve a date-filtered query string from `getFilteredQueriesBySlug`.
- *    - Example: 'last-month' → `dates=${formattedLast30Days},${currentDate}&ordering=-added&page_size=20`
+ *    - Example: 'all-stars' → `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`
  * 4. Constructs the full RAWG API URL for the selected category using the query string and API key.
  * 5. Passes the URL and slug to the `HydratedGamesPage` client component,
  *    where React Query will handle the actual data fetching and hydration.
@@ -39,23 +33,24 @@ export async function generateStaticParams() {
  *
  */
 
-export default async function ReleasedGames({
+export default async function GamesByGenre({
   params,
 }: {
-  params: { slug: URLSlug };
+  params: { slug: PlatformID };
 }) {
   // Destructured slug from route params (eg 'best-of-year')
   // next js says that await is not needed - but next docs explain it is required because its async function - if removed console will flag error
   const { slug } = await params;
 
-  // mapped slug to query Key (eg 'lastMonth, nextMonth')
-  const key = slugToQueryKey[slug];
+  const platformId = slugToPlatformId[slug];
 
-  // get the date filtered query string for returned key (eg dates=${string},${string}&ordering=-added&page_size=20)
-  const query = getFilteredQueriesBySlug[key];
+  // WILL COME BACK TO THIS TO UPDATE SAFEGUEARDS FOR ALL FETCH REQUESTS
+  if (!platformId) {
+    throw new Error(`Unknown platform slug: ${slug}`);
+  }
 
   // construct api url string required to fetch dames
-  const url = `${baseURL}/games?${query}&key=${apiKey}`;
+  const url = `${baseURL}/games?key=${apiKey}&platforms=${platformId}`;
 
   return <HydratedGamesPage url={url} slug={slug} />;
 }
