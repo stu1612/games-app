@@ -8,10 +8,10 @@ import formatDate from "../utils/formatDate";
 import { GameCardProps } from "../types/games";
 
 export default function GameCard({ game }: GameCardProps) {
-  // state
+  // properties
   const [onHover, setOnHover] = useState(false);
 
-  // voids
+  // methods
   const handleHover = () => {
     if (window.innerWidth < 760) return;
     else setOnHover((prev) => !prev);
@@ -56,13 +56,14 @@ export default function GameCard({ game }: GameCardProps) {
 }
 
 function GameContent({ game }: GameCardProps) {
-  // properties
-  const genres = game.genres?.map((genre) => (
+  const genreLength = game.genres?.length;
+  const genres = game.genres?.map((genre, idx) => (
     <small
       key={genre.id}
       className="mr-2 underline underline-offset-4 text-[10px]"
     >
       {genre.name}
+      {genreLength && idx < genreLength - 1 && ","}
     </small>
   ));
 
@@ -75,7 +76,7 @@ function GameContent({ game }: GameCardProps) {
 
       <div className="decoration-1 py-4 flex flex-row justify-between items-center w-full">
         <small className="text-zinc-500">Genres:</small>
-        <div className="flex flex-wrap justify-end">{genres}</div>
+        <div className="flex flex-wrap justify-end gap-1">{genres}</div>
       </div>
       <Link href={`/game/${game.slug}`}>
         <button className="bg-[#ababab] py-3 rounded-md flex flex-row items-center justify-between w-full px-4">

@@ -36,6 +36,7 @@ const formattedNext7Days = next7Days.toISOString().slice(0, 10);
 
 export const getFilteredQueriesBySlug = {
   topFive: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=5`,
+  trending: `dates=${formattedLast7Days},${formattedNext7Days}&ordering=-added&page_size=20`,
   lastMonth: `dates=${formattedLast30Days},${currentDate}&ordering=-added&page_size=20`,
   thisWeek: `dates=${formattedLast7Days},${currentDate}&ordering=-added&page_size=10`,
   nextMonth: `dates=${currentDate},${formattedNext30Days}&ordering=-released&page_size=20`,
@@ -46,6 +47,7 @@ export const getFilteredQueriesBySlug = {
 
 export const slugToGamesQuery = {
   "top-five": "topFive",
+  trending: "trending",
   "last-month": "lastMonth",
   "this-week": "thisWeek",
   "next-month": "nextMonth",

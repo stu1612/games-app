@@ -14,7 +14,7 @@ import { slugToString } from "../utils/slugToString";
 
 type PageProps = {
   url: string;
-  slug: string;
+  slug?: string;
 };
 
 /**
@@ -56,9 +56,9 @@ export default async function HydratedGamesPage(props: PageProps) {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <GamesGrid
-        title={slugToString(slug)}
+        title={slug ? slugToString(slug) : "New and Trending Games"}
         url={url}
-        queryKey={["games", slug]}
+        queryKey={["games", slug ?? "all"]}
       />
     </HydrationBoundary>
   );
