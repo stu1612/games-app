@@ -2,9 +2,10 @@
 import {
   apiKey,
   baseURL,
-  slugToQueryKey,
-  URLSlug,
+  slugToGamesId,
+  GamesSlug,
   getFilteredQueriesBySlug,
+  slugToGamesQuery,
 } from "@/app/lib/api";
 
 // components
@@ -15,7 +16,7 @@ import HydratedGamesPage from "@/app/components/HydratedGamesPage";
  * Ensures that all slugs defined in `slugToQueryKey` are statically generated at build time.
  */
 export async function generateStaticParams() {
-  return Object.keys(slugToQueryKey).map((slug) => ({ slug }));
+  return Object.keys(slugToGamesId).map((slug) => ({ slug }));
 }
 
 /**
@@ -27,7 +28,7 @@ export async function generateStaticParams() {
  *
  * Workflow:
  * 1. Extracts the `slug` from route parameters.
- * 2. Maps the slug to a query key using `slugToQueryKey` (e.g. 'all-stars' → 'allStars').
+ * 2. Maps the slug to a query key using `slugToGamesQuery` (e.g. 'all-stars' → 'allStars').
  * 3. Uses the query key to retrieve a date-filtered query string from `getFilteredQueriesBySlug`.
  *    - Example: 'all-stars' → `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`
  * 4. Constructs the full RAWG API URL for the selected category using the query string and API key.
@@ -35,7 +36,7 @@ export async function generateStaticParams() {
  *    where React Query will handle the actual data fetching and hydration.
  *
  * Notes:
- * - The `slug` param is typed as `URLSlug`, which maps to a known set of slugs via `slugToQueryKey`.
+ * - The `slug` param is typed as `GamesSlug`, which maps to a known set of slugs via `slugToGamesQuery`.
  * - Data is not prefetched here directly; instead, hydration is handled in the client component - HydratedGamesPage
  *
  */
@@ -43,14 +44,14 @@ export async function generateStaticParams() {
 export default async function Discover({
   params,
 }: {
-  params: { slug: URLSlug };
+  params: { slug: GamesSlug };
 }) {
   // Destructured slug from route params (eg 'best-of-year, 'last-week')
   // IDE says that await is not needed - but its async method and it's in next js docs
   const { slug } = await params;
 
   // mapped slug to query Key (eg 'allStars')
-  const key = slugToQueryKey[slug];
+  const key = slugToGamesQuery[slug];
 
   // get the date filtered query string for returned key (eg `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`)
   const query = getFilteredQueriesBySlug[key];

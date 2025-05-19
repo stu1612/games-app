@@ -33,11 +33,7 @@ export async function generateStaticParams() {
  *
  */
 
-export default async function GamesByPlatform({
-  params,
-}: {
-  params: { slug: GamesID };
-}) {
+export default async function Games({ params }: { params: { slug: GamesID } }) {
   // Destructured slug from route params (eg 'best-of-year')
   // next js says that await is not needed - but next docs explain it is required because its async function - if removed console will flag error
   const { slug } = await params;
@@ -50,7 +46,11 @@ export default async function GamesByPlatform({
   }
 
   // construct api url string required to fetch dames
-  const url = `${baseURL}/games?key=${apiKey}&platforms=${platformId}`;
+  const param = platformId.type === "platform" ? "platforms" : "genres";
+  const url = `${baseURL}/games?key=${apiKey}&${param}=${platformId.id}`;
+
+  //   const url = `${baseURL}/games?key=${apiKey}&platforms=${platformId}`;
+  //   const url = `${baseURL}/games?key=${apiKey}&genres=racing`;
 
   return <HydratedGamesPage url={url} slug={slug} />;
 }

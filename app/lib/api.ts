@@ -44,7 +44,7 @@ export const getFilteredQueriesBySlug = {
   allStars: `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`,
 } as const;
 
-export const slugToQueryKey = {
+export const slugToGamesQuery = {
   "top-five": "topFive",
   "last-month": "lastMonth",
   "this-week": "thisWeek",
@@ -54,16 +54,24 @@ export const slugToQueryKey = {
   "all-stars": "allStars",
 } as const;
 
-export const slugToPlatformId = {
-  "playstation-5": 187,
-  "xbox-1": 1,
-  "nintendo-switch": 7,
-  pc: 4,
-  ios: 3,
-  android: 21,
-  macos: 5,
-  linux: 6,
+export const slugToGamesId = {
+  "playstation-5": { type: "platform", id: 187 },
+  "xbox-1": { type: "platform", id: 1 },
+  "nintendo-switch": { type: "platform", id: 7 },
+  pc: { type: "platform", id: 4 },
+  ios: { type: "platform", id: 3 },
+  android: { type: "platform", id: 21 },
+  macos: { type: "platform", id: 5 },
+  linux: { type: "platform", id: 6 },
+  action: { type: "genre", id: "action" },
+  adventure: { type: "genre", id: "adventure" },
+  rpg: { type: "genre", id: "role-playing-games-rpg" },
+  strategy: { type: "genre", id: "strategy" },
+  shooter: { type: "genre", id: "shooter" },
+  puzzle: { type: "genre", id: "puzzle" },
+  racing: { type: "genre", id: "racing" },
+  sports: { type: "genre", id: "sports" },
 } as const;
 
-export type URLSlug = keyof typeof slugToQueryKey;
-export type PlatformID = keyof typeof slugToPlatformId;
+export type GamesSlug = keyof typeof slugToGamesQuery;
+export type GamesID = keyof typeof slugToGamesId;
