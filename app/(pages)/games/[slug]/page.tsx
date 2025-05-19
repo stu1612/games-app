@@ -52,5 +52,5 @@ export default async function Games({ params }: { params: { slug: GamesID } }) {
   //   const url = `${baseURL}/games?key=${apiKey}&platforms=${platformId}`;
   //   const url = `${baseURL}/games?key=${apiKey}&genres=racing`;
 
-  return <HydratedGamesPage url={url} slug={slug} />;
+  return <HydratedGamesPage url={url} slug={slug} param={param} />;
 }

@@ -15,6 +15,7 @@ import { slugToString } from "../utils/slugToString";
 type PageProps = {
   url: string;
   slug?: string;
+  param?: string;
 };
 
 /**
@@ -44,7 +45,9 @@ type PageProps = {
  */
 
 export default async function HydratedGamesPage(props: PageProps) {
-  const { slug, url } = props;
+  const { slug, url, param } = props;
+
+  console.log("param ", param);
   const queryClient = new QueryClient();
 
   // TANSTACK : Prefetch game data on the server to enable hydration on the client
@@ -53,10 +56,20 @@ export default async function HydratedGamesPage(props: PageProps) {
     queryFn: () => fetchGamesFromAPI(url),
   });
 
+  const generateTitle = () => {
+    if (slug && param === "genres") {
+      return `${slugToString(slug)} Games`;
+    } else if (slug && param === "platforms") {
+      return `Games for ${slugToString(slug)}`;
+    } else if (slug) return `${slugToString(slug)}`;
+    else return "New and Trending Games";
+  };
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <GamesGrid
-        title={slug ? slugToString(slug) : "New and Trending Games"}
+        // title={slug ? slugToString(slug) : "New and Trending Games"}
+        title={generateTitle()}
         url={url}
         queryKey={["games", slug ?? "all"]}
       />

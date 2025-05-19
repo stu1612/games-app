@@ -46,19 +46,19 @@ export const getFilteredQueriesBySlug = {
 } as const;
 
 export const slugToGamesQuery = {
-  "top-five": "topFive",
-  trending: "trending",
-  "last-month": "lastMonth",
-  "this-week": "thisWeek",
-  "next-month": "nextMonth",
-  "best-of-the-year": "bestOfTheYear",
-  "popular-last-year": "popularLastYear",
-  "all-stars": "allStars",
+  "top-five": { type: "trending", id: "topFive" },
+  trending: { type: "trending", id: "trending" },
+  "last-month": { type: "trending", id: "lastMonth" },
+  "this-week": { type: "trending", id: "thisWeek" },
+  "next-month": { type: "trending", id: "nextMonth" },
+  "best-of-the-year": { type: "popular", id: "bestOfTheYear" },
+  "popular-last-year": { type: "popular", id: "popularLastYear" },
+  "all-stars": { type: "popular", id: "allStars" },
 } as const;
 
 export const slugToGamesId = {
   "playstation-5": { type: "platform", id: 187 },
-  "xbox-1": { type: "platform", id: 1 },
+  "xbox-one": { type: "platform", id: 1 },
   "nintendo-switch": { type: "platform", id: 7 },
   pc: { type: "platform", id: 4 },
   ios: { type: "platform", id: 3 },

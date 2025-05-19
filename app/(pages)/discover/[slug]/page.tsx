@@ -54,7 +54,7 @@ export default async function Discover({
   const key = slugToGamesQuery[slug];
 
   // get the date filtered query string for returned key (eg `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`)
-  const query = getFilteredQueriesBySlug[key];
+  const query = getFilteredQueriesBySlug[key.id];
 
   // construct api url string required to fetch dames
   const url = `${baseURL}/games?${query}&key=${apiKey}`;

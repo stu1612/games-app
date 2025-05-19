@@ -22,7 +22,7 @@ export const navLinks = [
         label: "Playstation 5",
         href: "/games/playstation-5",
       },
-      { label: "Xbox One", href: "/games/xbox-1" },
+      { label: "Xbox One", href: "/games/xbox-one" },
       {
         label: "Nintendo Switch",
         href: "/games/nintendo-switch",
