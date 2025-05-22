@@ -22,6 +22,7 @@ export type Game = {
   genres?: Genre[];
   released: string;
   slug: string;
+  id: number;
 };
 
 export type GameCardProps = {

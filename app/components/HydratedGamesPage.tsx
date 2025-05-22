@@ -47,7 +47,6 @@ type PageProps = {
 export default async function HydratedGamesPage(props: PageProps) {
   const { slug, url, param } = props;
 
-  console.log("param ", param);
   const queryClient = new QueryClient();
 
   // TANSTACK : Prefetch game data on the server to enable hydration on the client

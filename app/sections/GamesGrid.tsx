@@ -61,6 +61,8 @@ export default function GamesGrid({ title, url, queryKey }: GameProps) {
     queryFn: () => fetchGamesFromAPI(url),
   });
 
+  console.log(games);
+
   if (isLoading) return <p>Loading...</p>;
 
   const gamesGrid = games?.results.map((game: Game) => (

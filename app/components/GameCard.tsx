@@ -10,6 +10,7 @@ import { GameCardProps } from "../types/games";
 export default function GameCard({ game }: GameCardProps) {
   // properties
   const [onHover, setOnHover] = useState(false);
+  const [gameId, setGameId] = useState(null);
 
   // methods
   const handleHover = () => {
