@@ -1,5 +1,6 @@
 // libs
 import { apiKey, baseURL, slugToGamesId, GamesID } from "@/app/lib/api";
+import { useRouter } from "next/router";
 
 /**
  * Generates the static paths for the dynamic `popular/[slug]` route.
@@ -31,6 +32,10 @@ export async function generateStaticParams() {
  */
 
 export default async function GameDetail({ params }: { params: any }) {
+  const router = useRouter();
+  const { id } = router.query; // Extracts `id` from the query
+
+  console.log("id ", id);
   // Destructured slug from route params (eg 'best-of-year')
   // next js says that await is not needed - but next docs explain it is required because its async function - if removed console will flag error
   const { slug } = await params;

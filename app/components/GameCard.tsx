@@ -79,7 +79,13 @@ function GameContent({ game }: GameCardProps) {
         <small className="text-zinc-500">Genres:</small>
         <div className="flex flex-wrap justify-end gap-1">{genres}</div>
       </div>
-      <Link href={`/game/${game.slug}`}>
+      <Link
+        href={{
+          pathname: `/game/${game.slug}`,
+          query: { id: game.id },
+        }}
+        as={`/game/${game.slug}`}
+      >
         <button className="bg-[#ababab] py-3 rounded-md flex flex-row items-center justify-between w-full px-4">
           <p className="text-sm">See Details</p>
           <HiOutlineChevronRight />
