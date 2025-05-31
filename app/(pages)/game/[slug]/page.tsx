@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import useStore from "@/app/lib/store";
+import { useEffect } from "react";
 
 // export async function fetchGame() {
 //   const res = await fetch(`${baseURL}/games?key=${apiKey}`);
@@ -11,9 +12,13 @@ import useStore from "@/app/lib/store";
 // }
 
 export default function GameDisplay() {
-  const { id, updateId } = useStore();
+  const { id, hydrated } = useStore();
 
-  console.log("id :", id);
+  useEffect(() => {
+    if (hydrated) {
+      console.log("Hydrated id:", id);
+    }
+  }, [hydrated, id]);
   // const searchParams = useSearchParams();
   // const id = searchParams.get("id");
 

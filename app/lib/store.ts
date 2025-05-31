@@ -3,19 +3,28 @@ import { persist } from "zustand/middleware";
 
 type State = {
   id: number;
+  hydrated: boolean;
 };
 
 type Action = {
   updateId: (id: State["id"]) => void;
+  setHydrated: () => void;
 };
 
 const useStore = create<State & Action>()(
   persist(
     (set) => ({
       id: 0,
+      hydrated: false,
       updateId: (id: number) => set(() => ({ id })),
+      setHydrated: () => set(() => ({ hydrated: true })),
     }),
-    { name: "persistent-store" } // Keep the store persistent on localStorage, a storage prop is optional (localStorage chosen by default)
+    {
+      name: "persistent-store",
+      onRehydrateStorage: () => (state) => {
+        state?.setHydrated();
+      },
+    }
   )
 );
 
