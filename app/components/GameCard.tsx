@@ -12,7 +12,6 @@ import useStore from "../lib/store";
 export default function GameCard({ game }: GameCardProps) {
   // properties
   const [onHover, setOnHover] = useState(false);
-  const [gameId, setGameId] = useState(null);
 
   // methods
   const handleHover = () => {
@@ -47,7 +46,7 @@ export default function GameCard({ game }: GameCardProps) {
         </div>
 
         <h1 className="relative w-auto font-bold text-2xl mt-2 pr-12">
-          {game.name} - {game.id}
+          {game.name}
         </h1>
         {onHover && <GameContent game={game} />}
         <div className="block md:hidden">
