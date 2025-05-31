@@ -7,6 +7,8 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import formatDate from "../utils/formatDate";
 import { GameCardProps } from "../types/games";
 
+import useStore from "../lib/store";
+
 export default function GameCard({ game }: GameCardProps) {
   // properties
   const [onHover, setOnHover] = useState(false);
@@ -57,6 +59,8 @@ export default function GameCard({ game }: GameCardProps) {
 }
 
 function GameContent({ game }: GameCardProps) {
+  const { updateId } = useStore();
+
   const genreLength = game.genres?.length;
   const genres = game.genres?.map((genre, idx) => (
     <small
@@ -84,7 +88,10 @@ function GameContent({ game }: GameCardProps) {
           pathname: `/game/${game.slug}`,
         }}
       >
-        <button className="bg-[#ababab] py-3 rounded-md flex flex-row items-center justify-between w-full px-4">
+        <button
+          onClick={() => updateId(game.id)}
+          className="bg-[#ababab] py-3 rounded-md flex flex-row items-center justify-between w-full px-4"
+        >
           <p className="text-sm">See Details</p>
           <HiOutlineChevronRight />
         </button>

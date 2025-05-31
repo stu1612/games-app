@@ -2,6 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import useStore from "@/app/lib/store";
+
 // export async function fetchGame() {
 //   const res = await fetch(`${baseURL}/games?key=${apiKey}`);
 //   if (!res.ok) throw new Error("Failed to load");
@@ -9,6 +11,9 @@ import { useQuery } from "@tanstack/react-query";
 // }
 
 export default function GameDisplay() {
+  const { id, updateId } = useStore();
+
+  console.log("id :", id);
   // const searchParams = useSearchParams();
   // const id = searchParams.get("id");
 
