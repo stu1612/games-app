@@ -1,56 +1,28 @@
-// libs
-import { apiKey, baseURL, slugToGamesId, GamesID } from "@/app/lib/api";
-import { useRouter } from "next/router";
+"use client";
 
-/**
- * Generates the static paths for the dynamic `popular/[slug]` route.
- * Ensures that all slugs defined in `slugToQueryKey` are statically generated at build time.
- */
-export async function generateStaticParams() {
-  return Object.keys(slugToGamesId).map((slug) => ({ slug }));
-}
+import { useQuery } from "@tanstack/react-query";
 
-/**
- * Dynamic Route: Renders a page of games filtered by category via slug.
- *
- * This route handles requests to `/popular/[slug]`, where `[slug]` is a dynamic
- * segment representing different game categories (e.g. 'best-of-the-year', 'popular-2024').
- *
- * Workflow:
- * 1. Extracts the `slug` from route parameters.
- * 2. Maps the slug to a query key using `slugToQueryKey` (e.g. 'all-stars' → 'allStars').
- * 3. Uses the query key to retrieve a date-filtered query string from `getFilteredQueriesBySlug`.
- *    - Example: 'all-stars' → `dates=2000-01-01,${currentDate}&ordering=-added&page_size=20`
- * 4. Constructs the full RAWG API URL for the selected category using the query string and API key.
- * 5. Passes the URL and slug to the `HydratedGamesPage` client component,
- *    where React Query will handle the actual data fetching and hydration.
- *
- * Notes:
- * - The `slug` param is typed as `URLSlug`, which maps to a known set of slugs via `slugToQueryKey`.
- * - Data is not prefetched here directly; instead, hydration is handled in the client component.
- *
- */
+// export async function fetchGame() {
+//   const res = await fetch(`${baseURL}/games?key=${apiKey}`);
+//   if (!res.ok) throw new Error("Failed to load");
+//   return res.json();
+// }
 
-export default async function GameDetail({ params }: { params: any }) {
-  const router = useRouter();
-  const { id } = router.query; // Extracts `id` from the query
+export default function GameDisplay() {
+  // const searchParams = useSearchParams();
+  // const id = searchParams.get("id");
 
-  console.log("id ", id);
-  // Destructured slug from route params (eg 'best-of-year')
-  // next js says that await is not needed - but next docs explain it is required because its async function - if removed console will flag error
-  const { slug } = await params;
+  // console.log("id: ", id);
 
-  // WILL COME BACK TO THIS TO UPDATE SAFEGUEARDS FOR ALL FETCH REQUESTS
-  //   if (!platformId) {
-  //     throw new Error(`Unknown platform slug: ${slug}`);
-  //   }
+  // const {
+  //   data: game,
+  //   isLoading,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["game", id],
+  //   queryFn: () => fetchGame(id!),
+  //   enabled: !!id,
+  // });
 
-  // construct api url string required to fetch dames
-  //   const url = `${baseURL}/games?key=${apiKey}&platforms=${platformId}`;
-
-  return (
-    <div className="">
-      <h2>Game: {slug}</h2>
-    </div>
-  );
+  return <div>GameDisplay</div>;
 }

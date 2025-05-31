@@ -45,7 +45,7 @@ export default function GameCard({ game }: GameCardProps) {
         </div>
 
         <h1 className="relative w-auto font-bold text-2xl mt-2 pr-12">
-          {game.name}
+          {game.name} - {game.id}
         </h1>
         {onHover && <GameContent game={game} />}
         <div className="block md:hidden">
@@ -82,9 +82,7 @@ function GameContent({ game }: GameCardProps) {
       <Link
         href={{
           pathname: `/game/${game.slug}`,
-          query: { id: game.id },
         }}
-        as={`/game/${game.slug}`}
       >
         <button className="bg-[#ababab] py-3 rounded-md flex flex-row items-center justify-between w-full px-4">
           <p className="text-sm">See Details</p>
