@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Masonry from "react-masonry-css";
 
 // libs
-import { fetchGamesFromAPI } from "../lib/fetcher";
+import { fetchGamesFromAPI } from "@/app/lib/fetchGames";
 
 // components
 import { GameCard } from "../components";
@@ -60,8 +60,6 @@ export default function GamesGrid({ title, url, queryKey }: GameProps) {
     queryKey: queryKey,
     queryFn: () => fetchGamesFromAPI(url),
   });
-
-  console.log(games);
 
   if (isLoading) return <p>Loading...</p>;
 

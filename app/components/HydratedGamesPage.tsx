@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 
 // libs
-import { fetchGamesFromAPI } from "@/app/lib/fetcher";
+import { fetchGamesFromAPI } from "../lib/fetchGames";
 
 // components
 import GamesGrid from "@/app/sections/GamesGrid";
@@ -67,7 +67,6 @@ export default async function HydratedGamesPage(props: PageProps) {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <GamesGrid
-        // title={slug ? slugToString(slug) : "New and Trending Games"}
         title={generateTitle()}
         url={url}
         queryKey={["games", slug ?? "all"]}
