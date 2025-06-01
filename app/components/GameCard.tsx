@@ -7,7 +7,10 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import formatDate from "../utils/formatDate";
 import { GameCardProps } from "../types/games";
 
+import useGameIdUpdater from "../hooks/useGameIdUpdater";
+
 import useStore from "../lib/store";
+import GameLink from "./GameLink";
 
 export default function GameCard({ game }: GameCardProps) {
   // properties
@@ -59,6 +62,7 @@ export default function GameCard({ game }: GameCardProps) {
 
 function GameContent({ game }: GameCardProps) {
   const { updateId } = useStore();
+  const updateGameId = useGameIdUpdater();
 
   const genreLength = game.genres?.length;
   const genres = game.genres?.map((genre, idx) => (
@@ -82,7 +86,7 @@ function GameContent({ game }: GameCardProps) {
         <small className="text-zinc-500">Genres:</small>
         <div className="flex flex-wrap justify-end gap-1">{genres}</div>
       </div>
-      <Link
+      {/* <Link
         href={{
           pathname: `/game/${game.slug}`,
         }}
@@ -94,7 +98,16 @@ function GameContent({ game }: GameCardProps) {
           <p className="text-sm">See Details</p>
           <HiOutlineChevronRight />
         </button>
-      </Link>
+      </Link> */}
+      <GameLink game={game}>
+        <button
+          onClick={() => updateGameId(game.id)}
+          className="bg-[#ababab] py-3 rounded-md flex flex-row items-center justify-between w-full px-4"
+        >
+          <p className="text-sm">See Details</p>
+          <HiOutlineChevronRight />
+        </button>
+      </GameLink>
     </div>
   );
 }
