@@ -1,9 +1,3 @@
-export { default as Heading } from "./Heading";
-export { default as ImageCarousel } from "./ImageCarousel";
-export { default as MobileSidebar } from "./MobileSidebar";
-export { default as Navbar } from "./Navbar";
-export { default as Sidebar } from "./Sidebar";
-export { default as GameCard } from "./GameCard";
-export { default as HydratedGamesPage } from "./HydratedGamesPage";
-export { default as SearchBar } from "./SearchBar";
-export { default as GameLink } from "./GameLink";
+export * from "./game";
+export * from "./navigation";
+export * from "./ui";

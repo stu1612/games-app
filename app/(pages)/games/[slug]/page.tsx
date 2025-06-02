@@ -2,7 +2,7 @@
 import { apiKey, baseURL, slugToGamesId, GamesID } from "@/app/lib/api";
 
 // components
-import HydratedGamesPage from "@/app/components/HydratedGamesPage";
+import HydratedGamesPage from "@/app/sections/HydratedGamesPage";
 
 /**
  * Generates the static paths for the dynamic `popular/[slug]` route.
@@ -45,7 +45,7 @@ export default async function Games({ params }: { params: { slug: GamesID } }) {
     throw new Error(`Unknown platform slug: ${slug}`);
   }
 
-  // construct api url string required to fetch dames
+  // construct api url string required to fetch games
   const param = platformId.type === "platform" ? "platforms" : "genres";
   const url = `${baseURL}/games?key=${apiKey}&${param}=${platformId.id}`;
 

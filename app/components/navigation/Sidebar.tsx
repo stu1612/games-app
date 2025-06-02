@@ -2,7 +2,7 @@
 
 import NavLink from "./NavLink";
 
-import { navLinks } from "../constants/navLinks";
+import { navLinks } from "../../constants/navLinks";
 
 export default function Sidebar() {
   const navigationLinks = navLinks.map((section) => (

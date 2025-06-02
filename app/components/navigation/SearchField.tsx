@@ -5,13 +5,12 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
-import { fetchGameByQuery } from "../lib/fetchGames";
-import Link from "next/link";
-import GameLink from "./GameLink";
+import { fetchGameByQuery } from "../../lib/fetchGames";
+import GameLink from "../game/GameLink";
 
-import useGameIdUpdater from "../hooks/useGameIdUpdater";
+import useGameIdUpdater from "../../hooks/useGameIdUpdater";
 
-export default function SearchBar() {
+export default function SearchField() {
   const [value, setValue] = useState("");
 
   const updateGameId = useGameIdUpdater();

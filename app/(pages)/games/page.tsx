@@ -8,7 +8,7 @@ import {
 } from "@/app/lib/api";
 
 // components
-import HydratedGamesPage from "@/app/components/HydratedGamesPage";
+import HydratedGamesPage from "@/app/sections/HydratedGamesPage";
 
 /**
  * Generates the static paths for the dynamic `popular/[slug]` route.
