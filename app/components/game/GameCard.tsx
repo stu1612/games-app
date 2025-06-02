@@ -24,7 +24,7 @@ export default function GameCard({ game }: GameCardProps) {
 
   return (
     <div
-      className=" rounded-2xl h-fit overflow-visible flex flex-col bg-slate-200 cursor-pointer  relative"
+      className="rounded-2xl h-fit overflow-visible flex flex-col bg-zinc-800 relative "
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
     >
