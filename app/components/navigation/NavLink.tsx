@@ -2,7 +2,7 @@ import Link from "next/link";
 
 type Props = {
   href: string;
-  children: React.ReactNode;
+  children: React.ReactNode | React.ReactElement;
 };
 
 export default function NavLink({ href, children }: Props) {
