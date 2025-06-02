@@ -80,6 +80,7 @@ export const slugToGamesId = {
   puzzle: { type: "genre", id: "puzzle" },
   racing: { type: "genre", id: "racing" },
   rpg: { type: "genre", id: "role-playing-games-rpg" },
+  "role-playing-games-rpg": { type: "genre", id: "role-playing-games-rpg" },
   shooter: { type: "genre", id: "shooter" },
   simulation: { type: "genre", id: "simulation" },
   sports: { type: "genre", id: "sports" },
