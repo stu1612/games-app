@@ -4,8 +4,7 @@
 import { useState } from "react";
 
 // components
-import MobileSidebar from "./MobileSidebar";
-import SearchBar from "./SearchField";
+import { MobileSidebar, SearchField } from "../components";
 
 export default function Navbar() {
   // state
@@ -17,9 +16,11 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-green-500 relative w-full top-0 h-20 z-30 flex items-center justify-between p-4 ">
-      <div className="flex flex-1 bg-red-400">Game Stop</div>
-      <SearchBar />
+    <div className="bg-[#151515] relative w-full top-0 h-20 z-30 flex items-center justify-between p-4 ">
+      <div className="flex flex-1">
+        <h1 className="text-5xl text-white">Game Stop</h1>
+      </div>
+      <SearchField />
       <button onClick={toggleMobileMenu} className="flex flex-1 bg-red-400">
         open
       </button>
