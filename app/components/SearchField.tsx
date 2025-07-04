@@ -5,10 +5,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
-import { fetchGameByQuery } from "../../lib/fetchGames";
-import GameLink from "../game/GameLink";
+import { fetchGameByQuery } from "../lib/fetchGames";
+import GameLink from "./GameLink";
 
-import useGameIdUpdater from "../../hooks/useGameIdUpdater";
+import useGameIdUpdater from "../hooks/useGameIdUpdater";
 
 export default function SearchField() {
   const [value, setValue] = useState("");

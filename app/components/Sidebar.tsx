@@ -1,6 +1,6 @@
 "use client";
 
-import NavLink from "../components/navigation/NavLink";
+import NavLink from "./NavLink";
 import Image from "next/image";
 
 import { navLinks } from "../constants/navLinks";
