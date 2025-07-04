@@ -5,7 +5,7 @@ import { useState } from "react";
 
 // components
 import MobileSidebar from "./MobileSidebar";
-import SearchBar from "./SearchField";
+import SearchBar from "../components/navigation/SearchField";
 
 export default function Navbar() {
   // state

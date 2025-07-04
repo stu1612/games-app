@@ -1,9 +1,9 @@
 "use client";
 
-import NavLink from "./NavLink";
+import NavLink from "../components/navigation/NavLink";
 import Image from "next/image";
 
-import { navLinks } from "../../constants/navLinks";
+import { navLinks } from "../constants/navLinks";
 
 export default function Sidebar() {
   const navigationLinks = navLinks.map((section) => (

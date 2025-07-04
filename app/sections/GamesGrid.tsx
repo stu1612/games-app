@@ -8,7 +8,7 @@ import Masonry from "react-masonry-css";
 import { fetchGamesFromAPI } from "@/app/lib/fetchGames";
 
 // components
-import { GameCard } from "../components";
+import { GameCard } from "../components/game/GameCard";
 
 // types
 import { Game } from "../types/games";
