@@ -19,7 +19,7 @@ export default function GameCardPanel({ game }: GameCardProps) {
   const updateGameId = useGameIdUpdater();
 
   return (
-    <div className="flex flex-col w-full md:absolute bg-zinc-800 md:left-0 z-10 px-4 pt-4 py-8 rounded-b-2xl">
+    <div className="flex flex-col w-full md:absolute bg-zinc-800 md:left-0 z-10 md:px-4 pt-4 py-8 rounded-b-2xl">
       <div className="decoration-1 py-4 flex flex-row justify-between border-b-[0.5px] border-text border-zinc-500 border-solid w-full">
         <small className="text-zinc-500">Released Date: </small>
         <small>{formatDate(game.released)}</small>

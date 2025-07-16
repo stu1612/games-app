@@ -9,3 +9,4 @@ export { default as GameCardPanel } from "./GameCardPanel";
 export { default as GameCardGenres } from "./GameCardGenres";
 export { default as SearchField } from "./SearchField";
 export { default as NavLink } from "./NavLink";
+export { default as NavigationLink } from "./NavigationLinks";

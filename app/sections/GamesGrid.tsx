@@ -75,7 +75,7 @@ export default function GamesGrid({ title, url, queryKey }: GameProps) {
   return (
     <>
       <div className="px-4">
-        <h1 className="font-black text-6xl p-0 pb-8">
+        <h1 className="font-black text-3xl md:text-6xl p-0 pb-8">
           {capitalizeText(title)}
         </h1>
       </div>
