@@ -27,7 +27,7 @@ export default function Navbar() {
           <div className="flex flex-1 ">
             <SearchField />
           </div>
-          <div className="">
+          <div className="flex md:hidden">
             <button
               onClick={toggleMobileMenu}
               className=" bg-red-400 h-full px-4"

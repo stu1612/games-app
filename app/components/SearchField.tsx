@@ -33,9 +33,9 @@ export default function SearchField() {
       <form className="w-full h-full">
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search games"
           onChange={handleChange}
-          className="bg-white w-full h-full text-black"
+          className="bg-white w-full h-full text-black px-4 rounded-2xl focus:outline-hidden"
         />
         {value.length !== 0 ? (
           <div className=" bg-blue-400 absolute w-[70vw] h-auto p-4">
