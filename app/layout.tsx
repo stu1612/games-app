@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Rubik_80s_Fade } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import QueryProvider from "./providers/QueryProvider";
 
 import "./globals.css";
@@ -13,12 +13,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-// export const rubiksFade = Rubik_80s_Fade({
-//   variable: "--font-rubik-80s-fade",
-//   subsets: ["latin"],
-//   weight: "400",
-// });
 
 export const metadata: Metadata = {
   title: "Game Stop",

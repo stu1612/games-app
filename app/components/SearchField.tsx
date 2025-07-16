@@ -29,13 +29,13 @@ export default function SearchField() {
   });
 
   return (
-    <div className="w-full flex flex-1">
-      <form>
+    <div className="w-full">
+      <form className="w-full h-full">
         <input
           type="text"
           placeholder="Search"
           onChange={handleChange}
-          className="bg-white w-full text-black"
+          className="bg-white w-full h-full text-black"
         />
         {value.length !== 0 ? (
           <div className=" bg-blue-400 absolute w-[70vw] h-auto p-4">
