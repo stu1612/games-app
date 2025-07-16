@@ -7,6 +7,9 @@ import Masonry from "react-masonry-css";
 // libs
 import { fetchGamesFromAPI } from "@/app/lib/fetchGames";
 
+// utils
+import { capitalizeText } from "../utils/capitlizeString";
+
 // components
 import { GameCard } from "../components";
 
@@ -72,11 +75,13 @@ export default function GamesGrid({ title, url, queryKey }: GameProps) {
   return (
     <>
       <div className="px-4">
-        <h1 className="font-black text-6xl p-0 m-0">{title}</h1>
+        <h1 className="font-black text-6xl p-0 pb-8">
+          {capitalizeText(title)}
+        </h1>
       </div>
       <Masonry
         breakpointCols={breakpoints}
-        className="my-masonry-grid"
+        className="my-masonry-grid "
         columnClassName="my-masonry-grid_column"
       >
         {gamesGrid}
