@@ -2,6 +2,7 @@
 
 // react
 import { useState } from "react";
+import Link from "next/link";
 
 // components
 import { MobileSidebar, SearchField } from "../components";
@@ -22,9 +23,11 @@ export default function Navbar() {
     <div className="bg-[#151515] relative w-full top-0 h-auto z-30 flex items-center justify-between px-4 md:px-8 py-4 ">
       <div className="flex flex-col lg:flex-row w-full gap-6">
         <div>
-          <h1 className="text-3xl lg:text-4xl text-white whitespace-nowrap overflow-hidden">
-            Ⓖⓐⓜⓔ Ⓢⓣⓞⓟ
-          </h1>
+          <Link href={"/games"}>
+            <h1 className="text-3xl lg:text-4xl text-white whitespace-nowrap overflow-hidden">
+              Ⓖⓐⓜⓔ Ⓢⓣⓞⓟ
+            </h1>
+          </Link>
         </div>
         <div className="flex w-full">
           <div className="flex flex-1 ">

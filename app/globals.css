@@ -57,6 +57,13 @@ html {
   .card {
     margin-bottom: 2rem !important;
   }
+
+  .text-strong-shadow {
+    text-shadow:
+      3px 3px 10px rgba(0, 0, 0, 0.95),
+      0 0 20px rgba(0, 0, 0, 0.85),
+      0 0 40px rgba(0, 0, 0, 0.6);
+  }
 }
 
 @layer components {
