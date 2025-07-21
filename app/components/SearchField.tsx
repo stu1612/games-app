@@ -10,15 +10,20 @@ import GameLink from "./GameLink";
 
 import useGameIdUpdater from "../hooks/useGameIdUpdater";
 
+// npm
+import { MdOutlineSwipe } from "react-icons/md";
+
 export default function SearchField() {
   const [value, setValue] = useState("");
 
   const updateGameId = useGameIdUpdater();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let input = "";
-    input = event.target.value;
-    setValue(input);
+    setValue(event.target.value);
+  };
+
+  const handleResetForm = () => {
+    setValue("");
   };
 
   // query
@@ -33,13 +38,20 @@ export default function SearchField() {
       <form className="w-full h-full">
         <input
           type="text"
+          value={value}
           placeholder="Search games"
           onChange={handleChange}
+          onSubmit={(e) => e.preventDefault()}
           className="bg-white w-full h-full text-black px-4 rounded-2xl focus:outline-hidden"
         />
         {value.length !== 0 ? (
-          <div className=" bg-blue-400 absolute w-[70vw] h-auto p-4">
-            <h4>Games</h4>
+          <div className="bg-zinc-700 absolute w-[70vw] h-auto p-4 mt-2">
+            <div className="flex justify-between">
+              <h4 className="text-2xl md:text-3xl font-bold py-4">Games</h4>
+              <button onClick={handleResetForm}>
+                <MdOutlineSwipe color="yellow" size={28} />
+              </button>
+            </div>
             {data?.results.map((game: any) => (
               <div
                 className="flex flex-row items-center gap-4 pb-8"

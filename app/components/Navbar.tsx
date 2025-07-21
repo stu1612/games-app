@@ -7,7 +7,7 @@ import { useState } from "react";
 import { MobileSidebar, SearchField } from "../components";
 
 //npm
-import { BsPlayCircleFill } from "react-icons/bs";
+import { IoMdOpen } from "react-icons/io";
 
 export default function Navbar() {
   // state
@@ -32,7 +32,7 @@ export default function Navbar() {
           </div>
           <div className="flex md:hidden">
             <button onClick={toggleMobileMenu} className=" px-4">
-              <BsPlayCircleFill color="green" size={28} />
+              {isOpen ? null : <IoMdOpen color="green" size={28} />}
             </button>
             {isOpen && <MobileSidebar toggleMenu={toggleMobileMenu} />}
           </div>

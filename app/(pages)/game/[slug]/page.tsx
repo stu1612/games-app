@@ -6,6 +6,8 @@ import Image from "next/image";
 
 import useStore from "@/app/lib/store";
 import { fetchGameById } from "@/app/lib/fetchGames";
+import { RxSection } from "react-icons/rx";
+import { FaSection } from "react-icons/fa6";
 
 export default function GameDisplay() {
   const { id, hydrated } = useStore();
@@ -20,30 +22,30 @@ export default function GameDisplay() {
   if (isLoading) return <div>Loading game...</div>;
   if (error) return <div>Error loading game</div>;
 
-  console.log(data);
-
-  const ratingsScore =
-    "This game has a {data?.ratings[0].percent}% ratings score of {data?.ratings[0].title}";
-
   return (
-    <div className="">
-      <div className="grid grid-cols-3 h-auto">
-        <div className="col-span-2 bg-red-500">
+    <section>
+      <div>
+        <div className="h-auto md:h-[50vh] lg:h-[80vh] relative">
           <Image
             alt={`${data.name}`}
             width={500}
             height={500}
             src={`${data.background_image}`}
             priority={true}
-            style={{ objectFit: "cover", width: "100%", height: "50%" }}
+            style={{ width: "100%", height: "100%" }}
+            className="object-contain md:object-fill lg:object-cover"
           />
-          <h1>
+          <h1 className="text-2xl md:text-3xl font-bold py-4">
             {data.name} <span>{data.rating}/5</span>
           </h1>
-          <h4>{data?.ratings[0] ? ratingsScore : null}</h4>
+          <h4>
+            {data?.ratings[0]
+              ? `${data?.ratings[0].percent}% ratings score of ${data?.ratings[0].title}`
+              : null}
+          </h4>
           <p>{data?.description_raw}</p>
         </div>
-        <div className="col-span-1 bg-blue-300 flex flex-col">
+        {/* <div className="col-span-1 bg-blue-300 flex flex-col">
           {data?.genres.map((genre: any) => (
             <Image
               key={genre?.name}
@@ -53,8 +55,8 @@ export default function GameDisplay() {
               src={`${genre.image_background}`}
             />
           ))}
-        </div>
+        </div> */}
       </div>
-    </div>
+    </section>
   );
 }
