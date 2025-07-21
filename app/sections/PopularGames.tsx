@@ -10,6 +10,7 @@ import { fetchPopularGames } from "../lib/fetchGames";
 
 // npm
 import { motion } from "framer-motion";
+import { FaCentercode } from "react-icons/fa6";
 
 // components
 import { Heading, ImageCarousel } from "../components";
@@ -63,7 +64,7 @@ export default function PopularGames() {
         className="h-auto md:h-screen relative"
       >
         {games?.[index] && (
-          <div className="h-screen w-full relative cursor-pointer">
+          <div className="h-screen w-full relative">
             <Image
               src={games[index]?.background_image}
               alt={games[index]?.name}
@@ -74,7 +75,7 @@ export default function PopularGames() {
             <div className="gradient-bg" />
 
             <div className="z-10 absolute top-20 left-0 right-0 md:left-20 px-12 ">
-              <Heading title="Top 5 Games since 2019" />
+              <Heading title="Top Games since 2019" />
 
               <motion.h2
                 initial={{ x: -100, opacity: 0 }}
@@ -94,10 +95,16 @@ export default function PopularGames() {
               </motion.h3>
             </div>
             <div className="absolute top-8 right-8">
-              <Link href={"/games"}>
-                <button className="bg-white px-6 py-4 cursor-pointer">
-                  Enter
-                </button>
+              <Link
+                href={"/games"}
+                className="px-6 py-4 flex flex-row items-center gap-2 text-xl font-thin tracking-widest uppercase drop-shadow-lg group"
+              >
+                Enter
+                <FaCentercode
+                  size={44}
+                  color="#6ee7b7"
+                  className="animate-pulse group-hover:scale-115 duration-300 ease-out"
+                />
               </Link>
             </div>
             {games[index] && games[index].short_screenshots && (

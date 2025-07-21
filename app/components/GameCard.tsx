@@ -24,11 +24,11 @@ export default function GameCard({ game }: GameCardProps) {
 
   return (
     <div
-      className="rounded-2xl h-fit overflow-visible flex flex-col bg-zinc-800 relative hover:scale-105 "
+      className="rounded-2xl h-fit overflow-visible flex flex-col bg-zinc-800 relative transition-transform "
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
     >
-      <div className="h-44 ">
+      <div className="h-44">
         {game.background_image ? (
           <img
             src={game.background_image}
@@ -51,7 +51,14 @@ export default function GameCard({ game }: GameCardProps) {
         <h1 className="relative w-auto font-bold text-2xl mt-2 pr-12">
           {game.name}
         </h1>
-        {onHover && <GameCardPanel game={game} />}
+        {/* Desktop hover panel */}
+        {onHover && (
+          <div className="hidden md:block transition-transform">
+            <GameCardPanel game={game} />
+          </div>
+        )}
+
+        {/* Mobile always-visible panel */}
         <div className="block md:hidden">
           <GameCardPanel game={game} />
         </div>
