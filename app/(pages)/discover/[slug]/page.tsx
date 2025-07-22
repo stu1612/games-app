@@ -48,7 +48,7 @@ export default async function Discover({
 }) {
   // Destructured slug from route params (eg 'best-of-year, 'last-week')
   // IDE says that await is not needed - but its async method and it's in next js docs
-  const { slug } = await params;
+  const { slug } = params;
 
   // mapped slug to query Key (eg 'allStars')
   const key = slugToGamesQuery[slug];
