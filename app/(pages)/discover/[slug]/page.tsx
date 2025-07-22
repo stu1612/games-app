@@ -41,11 +41,7 @@ export async function generateStaticParams() {
  *
  */
 
-export default async function Discover({
-  params,
-}: {
-  params: { slug: GamesSlug };
-}) {
+export default function Discover({ params }: { params: { slug: GamesSlug } }) {
   // Destructured slug from route params (eg 'best-of-year, 'last-week')
   // IDE says that await is not needed - but its async method and it's in next js docs
   const { slug } = params;
