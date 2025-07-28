@@ -2,7 +2,7 @@
 import {
   apiKey,
   baseURL,
-  slugToGamesId,
+  // slugToGamesId,
   GamesSlug,
   getFilteredQueriesBySlug,
   slugToGamesQuery,
@@ -15,8 +15,11 @@ import HydratedGamesPage from "@/app/sections/HydratedGamesPage";
  * Generates the static paths for the dynamic `discover/[slug]` route.
  * Ensures that all slugs defined in `slugToQueryKey` are statically generated at build time.
  */
+// export async function generateStaticParams() {
+//   return Object.keys(slugToGamesId).map((slug) => ({ slug }));
+// }
 export async function generateStaticParams() {
-  return Object.keys(slugToGamesId).map((slug) => ({ slug }));
+  return Object.keys(slugToGamesQuery).map((slug) => ({ slug }));
 }
 
 /**
