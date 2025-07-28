@@ -1,3 +1,6 @@
+import { type Metadata } from "next";
+import { type InferGetStaticPropsType } from "next";
+
 // libs
 import {
   apiKey,
@@ -10,6 +13,12 @@ import {
 
 // components
 import HydratedGamesPage from "@/app/sections/HydratedGamesPage";
+
+interface DiscoverPageProps {
+  params: {
+    slug: GamesSlug;
+  };
+}
 
 /**
  * Generates the static paths for the dynamic `discover/[slug]` route.
@@ -44,7 +53,7 @@ export async function generateStaticParams() {
  *
  */
 
-export default function Discover({ params }: { params: { slug: GamesSlug } }) {
+export default function Discover({ params }: DiscoverPageProps) {
   // Destructured slug from route params (eg 'best-of-year, 'last-week')
   // IDE says that await is not needed - but its async method and it's in next js docs
   const { slug } = params;
